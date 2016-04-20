@@ -33,7 +33,7 @@ fun sum(a: Int, b: Int): Int {
 }
 ```
 
-표현식 몸체를 갖는 리턴 타입 추론 함수:
+식 몸체를 갖는 리턴 타입 추론 함수:
 
 ``` kotlin
 fun sum(a: Int, b: Int) = a + b
@@ -116,7 +116,7 @@ fun max(a: Int, b: Int): Int {
 }
 ```
 
-표현식에 *if*{: .keyword } 사용하기:
+식에 *if*{: .keyword } 사용하기:
 
 ``` kotlin
 fun max(a: Int, b: Int) = if (a > b) a else b
@@ -177,7 +177,7 @@ fun main(args: Array<String>) {
 
 ## 타입 체크와 자동 변환 사용하기
 
-*is*{: .keyword } 연산자는 표현식이 지정한 타입의 인스턴스인지 검사한다.
+*is*{: .keyword } 연산자는 대상이 지정한 타입의 인스턴스인지 검사한다.
 불변(immutable) 로컬 변수나 프로퍼티에 대해 특정 타입인지 검사하면, 명시적으로 타입 변환할 필요가 없다:
 
 ``` kotlin
@@ -248,7 +248,7 @@ fun main(args: Array<String>) {
 
 [while 루프](control-flow.html#while-loops) 참고.
 
-## `when` 표현식 사용하기
+## `when` 식 사용하기
 
 ``` kotlin
 fun cases(obj: Any) {
@@ -262,7 +262,7 @@ fun cases(obj: Any) {
 }
 ```
 
-[when 표현식](control-flow.html#when-expression) 참고.
+[when 식](control-flow.html#when-expression) 참고.
 
 ## 범위(range) 사용하기
 

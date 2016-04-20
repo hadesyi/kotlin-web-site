@@ -165,7 +165,7 @@ fun transform(color: String): Int {
 }
 ```
 
-### 'try/catch' 표현식
+### 'try/catch' 식
 
 ``` kotlin
 fun test() {
@@ -179,7 +179,7 @@ fun test() {
 }
 ```
 
-### 'if' 표현식
+### 'if' 식
 
 ``` kotlin
 fun foo(param: Int) {
@@ -202,7 +202,7 @@ fun arrayOfMinusOnes(size: Int): IntArray {
 ```
 
 
-### 한 개 표현식을 갖는 함수
+### 한 개 식을 갖는 함수
 
 ``` kotlin
 fun theAnswer() = 42
@@ -216,7 +216,7 @@ fun theAnswer(): Int {
 }
 ```
 
-코드를 더 짧게 하기 위해 이 코드를 다른 이디엄과 함께 사용할 수 있다. 다음은 *when*{: .keyword } 표현식과 함께 사용한 예이다.
+코드를 더 짧게 하기 위해 이 코드를 다른 이디엄과 함께 사용할 수 있다. 다음은 *when*{: .keyword } 식과 함께 사용한 예이다.
 
 ``` kotlin
 fun transform(color: String): Int = when (color) {
