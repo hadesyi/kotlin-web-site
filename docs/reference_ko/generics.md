@@ -32,7 +32,8 @@ val box = Box(1) // 1은 Int 타입을 가지므로, 컴파일러는 Box<Int>라
 자바 타입 시스템에서 가장 복잡한 부분 중 하나가 와일드카드 타입이다(see [자바 지네릭 FAQ](http://www.angelikalanger.com/GenericsFAQ/JavaGenericsFAQ.html) 참고).
 코틀린은 어떤 것도 갖지 않는다. 대신, declaration-site variance와 type projections의 두 가지를 갖는다.
 
-먼저, 자바에서 미스테리한 와일드카드가 필요한 이유를 생각해보자. 이 문제를 [Effective Java](http://www.oracle.com/technetwork/java/effectivejava-136174.html), Item 28: *Use bounded wildcards to increase API flexibility*에서 설명하고 있다.
+먼저, 자바에서 미스테리한 와일드카드가 필요한 이유를 생각해보자. 이 문제를 [Effective Java](http://www.oracle.com/technetwork/java/effectivejava-136174.html),
+Item 28: *Use bounded wildcards to increase API flexibility*에서 설명하고 있다.
 첫 째, 자바의 지네릭 타입은 **invariant**이다. 이는 `List<String>`은 `List<Object>`의 하위타입이 **아님**을 의미한다.
 왜 그랬을까? 만약 리스트가 **invariant**가 아니면, 그것은 자바 배열보다 나을 게 없다. 왜냐면, 다음 코드가 컴파일은 되지만
 런타임에 익셉션이 발생하기 때문이다:
@@ -54,7 +55,7 @@ interface Collection<E> ... {
 }
 ```
 
-하지만, (완벽하게 안전한) 다음의 간단한 코드를 할 수 없다:
+하지만, (완벽하게 안전한 코드임에도) 다음의 간단한 코드를 할 수 없다:
 
 ``` java
 // Java
@@ -75,17 +76,17 @@ interface Collection<E> ... {
   void addAll(Collection<? extends E> items);
 }
 ```
-**와일드카드 타입 인자** `? extends T`는 이 메서드가 `T` 자체가 아닌 `T`의 *하위 타입*의 객체 콜렉션을 허용한다는 것을 말한다.
+**와일드카드 타입 인자** `? extends T`는 이 메서드가 `T` 자체가 아닌 `T`의 *하위타입*의 객체 콜렉션을 허용한다는 것을 말한다.
 이는 items에서 안전하게 `T`로 **읽을** 수 있지만(이 콜렉션의 요소는 T의 하위클래스의 인스턴스이다),
 `T`의 어떤 하위타입인지 모르기 때문에 items에 **쓸 수 없다**는 것을 의미한다.
 이런 제한을 해소하기 위해, `Collection<String>`이 `Collection<? extends Object>`의 하위타입이 되도록 기능을 추가했다.
-"전문 용어"로, **extends**\-bound를 갖는 워일드카드를 타입 **convariant**로 만들었다.
-In "clever words", the wildcard with an **extends**\-bound (**upper** bound) makes the type **covariant**.
+"전문 용어"로, **extends**\-bound(**upper** bound)를 갖는 워일드카드가 타입을 **convariant**로 만들었다.
 
-The key to understanding why this trick works is rather simple: if you can only **take** items from a collection, then using a collection of `String`s
-and reading `Object`s from it is fine. Conversely, if you can only _put_ items into the collection, it's OK to take a collection of
-`Object`s and put `String`s into it: in Java we have `List<? super String>` a **supertype** of `List<Object>`.
+이 트릭이 왜 작동하는지 이해하는데 있어 핵심은 다소 단순하다: 만약 콜렉션에서 아이템을 오직 **가져올** 수만 있다면, `String` 콜렉션에서 `Object`를 읽는 것은 괜찮다.
+역으로, 콜렉션에 항목을 _넣을_ 수만 있다면, `Object` 콜렉션에 `String`을 넣는 건 괜찮다.
+자바에서 `List<? super String>`가 `List<Object>`의 **상위타입**이 된다.
 
+후자를 **contravariance**라고 부른다. 
 The latter is called **contravariance**, and you can only call methods that take String as an argument on `List<? super String>`
 (e.g., you can call `add(String)` or `set(int, String)`), while
 if you call something that returns `T` in `List<T>`, you don't get a `String`, but an `Object`.
