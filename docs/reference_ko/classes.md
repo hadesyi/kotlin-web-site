@@ -282,7 +282,7 @@ abstract class Derived : Base() {
 만약 클래스 인스턴스없이 클래스의 내부에 접근해야하는 함수를 작성하고 싶다면(예, 팩토리 메서드),
 그 클래스 안에 [오브젝트 선언](object-declarations.html)의 멤버로 함수를 작성할 수 있다.
 
-좀 더 구체적으로 클래스 안에 [컴페니언 오브젝트](object-declarations.html#companion-objects)를 선언하면,
+좀 더 구체적으로, 클래스 안에 [컴페니언 오브젝트](object-declarations.html#companion-objects)를 선언하면
 클래스 이름만으로 자바/C#의 정적 메서드를 호출하는 것처럼 컴페니언 오브젝트의 멤버를 호출할 수 있다.
 
 
