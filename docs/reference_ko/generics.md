@@ -30,7 +30,7 @@ val box = Box(1) // 1은 Int 타입을 가지므로, 컴파일러는 Box<Int>라
 ## Variance
 
 자바 타입 시스템에서 가장 복잡한 부분 중 하나가 와일드카드 타입이다(see [자바 지네릭 FAQ](http://www.angelikalanger.com/GenericsFAQ/JavaGenericsFAQ.html) 참고).
-코틀린은 어떤 것도 갖지 않는다. 대신, declaration-site variance와 type projections의 두 가지를 갖는다.
+코틀린은 어떤 것도 갖지 않는다. 대신, declaration-site variance와 type projection의 두 가지를 갖는다.
 
 먼저, 자바에서 미스테리한 와일드카드가 필요한 이유를 생각해보자. 이 문제를 [Effective Java](http://www.oracle.com/technetwork/java/effectivejava-136174.html),
 Item 28: *Use bounded wildcards to increase API flexibility*에서 설명하고 있다.
@@ -65,8 +65,8 @@ void copyAll(Collection<Object> to, Collection<String> from) {
 }
 ```
 
-(자바에서 우리는 이를 힘들게 배웠다. [Effective Java](http://www.oracle.com/technetwork/java/effectivejava-136174.html), Item 25:
-*Prefer lists to arrays*를 참고한다)
+(우리는 이를 힘들게 배웠다. [Effective Java](http://www.oracle.com/technetwork/java/effectivejava-136174.html), Item 25:
+*Prefer lists to arrays*를 참고하자.)
 
 이것이 실제 `addAll()` 시그너처가 다음과 같은 이유이다:
 
@@ -80,28 +80,29 @@ interface Collection<E> ... {
 이는 items에서 안전하게 `T`로 **읽을** 수 있지만(이 콜렉션의 요소는 T의 하위클래스의 인스턴스이다),
 `T`의 어떤 하위타입인지 모르기 때문에 items에 **쓸 수 없다**는 것을 의미한다.
 이런 제한을 해소하기 위해, `Collection<String>`이 `Collection<? extends Object>`의 하위타입이 되도록 기능을 추가했다.
-"전문 용어"로, **extends**\-bound(**upper** bound)를 갖는 워일드카드가 타입을 **convariant**로 만들었다.
+"전문 용어"로, **extends**\-bound(**upper** bound)를 갖는 워일드카드로 타입을 **convariant**하게 만들었다.
 
-이 트릭이 왜 작동하는지 이해하는데 있어 핵심은 다소 단순하다: 만약 콜렉션에서 아이템을 오직 **가져올** 수만 있다면, `String` 콜렉션에서 `Object`를 읽는 것은 괜찮다.
+이 트릭이 왜 작동하는지 이해하는데 있어 핵심은 다소 단순하다: 만약 콜렉션에서 아이템을 오직 **가져올** 수 만 있다면, `String` 콜렉션에서 `Object`를 읽는 것은 괜찮다.
 역으로, 콜렉션에 항목을 _넣을_ 수만 있다면, `Object` 콜렉션에 `String`을 넣는 건 괜찮다.
 자바에서 `List<? super String>`가 `List<Object>`의 **상위타입**이 된다.
 
-후자를 **contravariance**라고 부른다. 
-The latter is called **contravariance**, and you can only call methods that take String as an argument on `List<? super String>`
-(e.g., you can call `add(String)` or `set(int, String)`), while
-if you call something that returns `T` in `List<T>`, you don't get a `String`, but an `Object`.
+후자를 **contravariance**라고 부르며, `List<? super String>`에 인자로 String을 받는 메서드를 호출할 수 있다(예를 들어,
+  `add(String)`이나 `set(int, String)`을 호출할 수 있다).
+반면에, `List<T>`에서 `T`를 리턴하는 어떤 것을 호출하면, `String`이 아닌 `Object`를 얻게 된다.
 
-Joshua Bloch calls those objects you only **read** from **Producers**, and those you only **write** to **Consumers**. He recommends: "*For maximum flexibility, use wildcard types on input parameters that represent producers or consumers*", and proposes the following mnemonic:
+Joshua Blochs는 이 객체는 **Producer**에서만 **읽을** 수 있고, **Consumer**로만 **쓸** 수 있다고 했다.
+Joshua Blochs는 "*유연함을 최대한 얻으려면, producer나 consumer를 표현하는 입력 파라미터에 와일드카드 타입을 사용하라*"고 권하고 있으며,
+다음과 같이 기억을 쉽게 할 수 있는 약자를 제시했다.
 
-*PECS stands for Producer-Extends, Consumer-Super.*
+*PECS는 Producer-Extends, Consumer-Super를 의미한다.*
 
-*NOTE*: if you use a producer-object, say, `List<? extends Foo>`, you are not allowed to call `add()` or `set()` on this object, but this does not mean
-that this object is **immutable**: for example, nothing prevents you from calling `clear()` to remove all items from the list, since `clear()`
-does not take any parameters at all. The only thing guaranteed by wildcards (or other types of variance) is **type safety**. Immutability is a completely different story.
+*주의*: producer 객체를 사용한다면, 예를 들어, `List<? extends Foo>`, 이 객체에 대해 `add()`나 `set()`을 호출하는 것을 허용하지 않지만,
+이것은 이 객체가 **불변**이라는 것을 의미하는 것은 아니다. 예를 들어, 리스트의 모든 항목을 삭제하기 위해 `clear()`를 호출하는 것은 가능하다.
+왜냐면, `clear()`는 어떤 파라미터도 갖지 않기 때문이다. 와일드카드(또는 다른 종류의 variance)가 보장하는 것은 **타입 안정성**이다. 불변은 완전히 다른 얘기다.
 
 ### Declaration-site variance
 
-Suppose we have a generic interface `Source<T>` that does not have any methods that take `T` as a parameter, only methods that return `T`:
+`Source<T>` 지네릭 인터페이스가 `T`를 파라미터로 갖는 메서드는 없고 단지 `T`를 리턴하는 메서드만 있다고 하자:
 
 ``` java
 // Java
@@ -110,20 +111,22 @@ interface Source<T> {
 }
 ```
 
-Then, it would be perfectly safe to store a reference to an instance of `Source<String>` in a variable of type `Source<Object>` -- there are no consumer-methods to call. But Java does not know this, and still prohibits it:
+이때, `Source<Object>` 타입 변수에 `Source<String>` 인스턴스를 할당하는 것은 완전히 안전한 것이다. 여기엔 어떤 consumer 메서드도 호출하지 않는다.
+하지만, 자바는 이를 알지 못하기 때문에, 이를 막는다.
 
 ``` java
 // Java
 void demo(Source<String> strs) {
-  Source<Object> objects = strs; // !!! Not allowed in Java
+  Source<Object> objects = strs; // !!! 자바는 허용하지 않음
   // ...
 }
 ```
 
+이 문제를 고치려면, 다소 의미 없는 `Source<? extends Object>` 타입 객체를 선언해야 한다. 전과 같이 그런 변수에 같은 메서드를 호출할 수 있기 때문에, 더 복잡한 타입에 의해 추가한 값은 없다. 하지만, 컴파일러는 이 사실을 알지 못한다.
 To fix this, we have to declare objects of type `Source<? extends Object>`, which is sort of meaningless, because we can call all the same methods on such a variable as before, so there's no value added by the more complex type. But the compiler does not know that.
 
-In Kotlin, there is a way to explain this sort of thing to the compiler. This is called **declaration-site variance**: we can annotate the **type parameter** `T` of Source to make sure that it is only **returned** (produced) from members of `Source<T>`, and never consumed.
-To do this we provide the **out** modifier:
+코틀린은 컴파일러에 이런 종류의 내용을 설명하는 방법이 존재한다. 이를 **declaration-site variance**라고 부른다. 소스 코드의 **타입 파라미터** `T`에 애노테이션을 붙여서 확실히 `Source<T>`의 멤버가 **리턴**(생성)만 하고 소비(consume)하지 않는다고 할 수 있다.
+이를 위해 **out** 제한자를 제공한다:
 
 ``` kotlin
 abstract class Source<out T> {
@@ -131,22 +134,21 @@ abstract class Source<out T> {
 }
 
 fun demo(strs: Source<String>) {
-  val objects: Source<Any> = strs // This is OK, since T is an out-parameter
+  val objects: Source<Any> = strs // T는 out 파라미터이므로 OK
   // ...
 }
 ```
 
-The general rule is: when a type parameter `T` of a class `C` is declared **out**, it may occur only in **out**\-position in the members of `C`, but in return `C<Base>` can safely be a supertype
-of `C<Derived>`.
+일반 규칙: 클래스 `C`의 타입 파라미터 `T`를 **out**으로 선언하면, 타입 파라미터는 오직 `C` 멤버의 **out**\-위치에만 올 수 있다. 하지만, 리턴에서 `C<Base>`는 안전하게 `C<Derived>`의 상위타입이 될 수 있다.
 
-In "clever words" they say that the class `C` is **covariant** in the parameter `T`, or that `T` is a **covariant** type parameter.
-You can think of `C` as being a **producer** of `T`'s, and NOT a **consumer** of `T`'s.
+"전문 용어"로, 클래스 `C`는 파라미터 `T`에 **covariant** 하다 또는 `T`는 **covariant** 타입 파라미터라고 말한다.
+`C`를 `T`의 **consumer**가 아닌 T`의 **producer**로 생각할 수 있다.
 
-The **out** modifier is called a **variance annotation**, and  since it is provided at the type parameter declaration site, we talk about **declaration-site variance**.
-This is in contrast with Java's **use-site variance** where wildcards in the type usages make the types covariant.
+**out** 제한자는 **variance 애노테이션**이라 부르며, 타입 파라미터 선언 위치에 제공하기 때문에 **declaration-site variance**에 대해 이야기하고 있다.
+이는 자바가 타입을 사용할 때 와일드카드로 타입을 covariant하게 만드는 **use-site variance**인 것과 다르다.
 
-In addition to **out**, Kotlin provides a complementary variance annotation: **in**. It makes a type parameter **contravariant**: it can only be consumed and never
-produced. A good example of a contravariant class is `Comparable`:
+**out**과 더불어, 코틀린은 대체 variance 애노테이션인 **in**을 제공한다. **in**은 타입 파라미터를 **contravariant**로 만들어 준다. 이는 오직 consume만 될 수 있으며
+produce 할 수 없다. contravariant 클래스의 좋은 예가 `Comparable`이다:
 
 ``` kotlin
 abstract class Comparable<in T> {
@@ -154,14 +156,14 @@ abstract class Comparable<in T> {
 }
 
 fun demo(x: Comparable<Number>) {
-  x.compareTo(1.0) // 1.0 has type Double, which is a subtype of Number
-  // Thus, we can assign x to a variable of type Comparable<Double>
+  x.compareTo(1.0) // 1.0은 Number의 상위 타입은 Double 타입을 갖는다
+  // 그래서, Comparable<Double> 타입 변수를 x에 할당할 수 있다
   val y: Comparable<Double> = x // OK!
 }
 ```
 
-We believe that the words **in** and **out** are self-explaining (as they were successfully used in C# for quite some time already),
-thus the mnemonic mentioned above is not really needed, and one can rephrase it for a higher purpose:
+우리는 단어 **in**과 **out**이 자명하고(이미 꽤 오랜 시간 C#에서 성공적으로 사용하고 있다)
+그래서 위에서 언급한 기억하기 위한 PECS가 실제로 필요 없고 더 상위 목표를 위해 바깔 수 있다고 생각한다:
 
 **[The Existential](http://en.wikipedia.org/wiki/Existentialism) Transformation: Consumer in, Producer out\!** :-)
 
@@ -169,8 +171,9 @@ thus the mnemonic mentioned above is not really needed, and one can rephrase it 
 
 ### Use-site variance: Type projections
 
-It is very convenient to declare a type parameter T as *out* and have no trouble with subtyping on the use site. Yes, it is, when the class in question **can** actually be restricted to only return `T`'s, but what if it can't?
-A good example of this is Array:
+타입 파라미터 T를 *out*으로 선언하는 것은 매우 편리하며, use site에서 하위타입 관련 문제가 없다.
+Yes, it is, when the class in question **can** actually be restricted to only return `T`'s, but what if it can't?
+Array가 좋은 예이다:
 
 ``` kotlin
 class Array<T>(val size: Int) {
@@ -179,7 +182,7 @@ class Array<T>(val size: Int) {
 }
 ```
 
-This class cannot be either co\- or contravariant in `T`. And this imposes certain inflexibilities. Consider the following function:
+이 클래스는 `T`에 대해 covariant도 contravariant도 될 수 없다. 게다가 유연하지 않는 부분을 강제한다. 다음 함수를 보자:
 
 ``` kotlin
 fun copy(from: Array<Any>, to: Array<Any>) {
@@ -189,18 +192,19 @@ fun copy(from: Array<Any>, to: Array<Any>) {
 }
 ```
 
-This function is supposed to copy items from one array to another. Let's try to apply it in practice:
+이 함수는 한 배열에서 다른 배열로 항목을 복사한다. 실제로 함수 실행을 시도해보자:
 
 ``` kotlin
 val ints: Array<Int> = arrayOf(1, 2, 3)
 val any = Array<Any>(3)
-copy(ints, any) // Error: expects (Array<Any>, Array<Any>)
+copy(ints, any) // 에러: expects (Array<Any>, Array<Any>)
 ```
 
-Here we run into the same familiar problem: `Array<T>` is **invariant** in `T`, thus neither of `Array<Int>` and `Array<Any>`
-is a subtype of the other. Why? Again, because copy **might** be doing bad things, i.e. it might attempt to **write**, say, a String to `from`,
-and if we actually passed an array of `Int` there, a `ClassCastException` would have been thrown sometime later.
+여기서 익숙한 문제가 발생한다. `Array<T>`는 `T`에 대해 **invariant**하므로, `Array<Int>`와 `Array<Any>`는 서로 상대방의 하위타입이 아니다.
+왜 그럴까? copy는 나쁜 짓을 **할지 모르기** 때문이다. 예를 들어, String을 `from`에 **쓰려고** 시도하는데 실제로 `from`에 `Int` 배열을 전달했다면,
+나중에 `ClassCastException`이 발생할 수 있다.
 
+여기서 우리가 원하는 것은 `copy()`가 그런 나쁜 짓을 하지 않는 것을 보장하는 것이다. `from`에 **쓰는** 것을 막길 원하며, 다음과 같이 이를 할 수 있다:
 Then, the only thing we want to ensure is that `copy()` does not do any bad things. We want to prohibit it from **writing** to `from`, and we can:
 
 ``` kotlin
@@ -209,11 +213,10 @@ fun copy(from: Array<out Any>, to: Array<Any>) {
 }
 ```
 
-What has happened here is called **type projection**: we said that `from` is not simply an array, but a restricted (**projected**) one: we can only call those methods that return the type parameter
-`T`, in this case it means that we can only call `get()`. This is our approach to **use-site variance**, and corresponds to Java's `Array<? extends Object>`,
-but in a slightly simpler way.
+여기서 발생한 것을 **type projection**이라고 한다. 이 코드에서 `from`은 단순 배열이 아닌 제한된(**projected**) 배열이다. 오직 타입 파라미터 `T`를 리턴하는 메서드만 호출할 수 있다.
+이 경우, `get()`만 호출할 수 있다. 이것이 코틀린의 **use-site variance**에 대한 접근 방식이다. 자바의 `Array<? extends Object>`에 해당하지만 더 간단한 방법이다.
 
-You can project a type with **in** as well:
+**in**을 이용해서 타입을 project 할 수 있다:
 
 ``` kotlin
 fun fill(dest: Array<in String>, value: String) {
@@ -221,55 +224,57 @@ fun fill(dest: Array<in String>, value: String) {
 }
 ```
 
-`Array<in String>` corresponds to Java's `Array<? super String>`, i.e. you can pass an array of `CharSequence` or an array of `Object` to the `fill()` function.
+`Array<in String>`는 자바의 `Array<? super String>`에 해당하며, `CharSequence`의 배열이나 `Object`의 배열을 `fill()` 함수에 전달할 수 있다.
 
 ### Star-projections
 
+때때로 타입 인자에 대해 알지 못하지만 안전한 방법으로 인자를 사용하고 싶을 때가 있다.
+여기서 안전한 방법은 지네릭 타입의 projection을 정의해서, 지네릭 타입의 모든 컨크리트 인스턴스화가 그 projection의 하위 타입이 되도록 하는 것이다.
 Sometimes you want to say that you know nothing about the type argument, but still want to use it in a safe way.
 The safe way here is to define such a projection of the generic type, that every concrete instantiation of that generic type would be a subtype of that projection.
 
-Kotlin provides so called **star-projection** syntax for this:
+코틀린은 이를 위해 **star-projection**이라 불리는 구문을 제공한다:
 
- - For `Foo<out T>`, where `T` is a covariant type parameter with the upper bound `TUpper`, `Foo<*>` is equivalent to `Foo<out TUpper>`. It means that when the `T` is unknown you can safely *read* values of `TUpper` from `Foo<*>`.
- - For `Foo<in T>`, where `T` is a contravariant type parameter, `Foo<*>` is equivalent to `Foo<in Nothing>`. It means there is nothing you can *write* to `Foo<*>` in a safe way when `T` is unknown.
- - For `Foo<T>`, where `T` is an invariant type parameter with the upper bound `TUpper`, `Foo<*>` is equivalent to `Foo<out TUpper>` for reading values and to `Foo<in Nothing>` for writing values.
+ - `Foo<out T>`에 대해, `T`가 uppber bound `TUpper`를 갖는 covariant 타입 파라미터라면, `Foo<*>`은 `Foo<out TUpper>`와 같다. 이는 `T`를 몰라도 안전하게 `Foo<*>`에서 `TUpper` 값을 *읽을* 수 있다는 것을 의미한다.
+ - `Foo<in T>`에 대해, `T`가 contravariant 타입 파라미터라면, `Foo<*>`는 `Foo<in Nothing>`와 같다. 이는 `T`를 모를 때 안전하게 `Foo<*>`에 *쓸 수 없다는* 것을 의미한다.
+ - `Foo<T>`에 대해, `T`가 uppber bound `TUpper`를 갖는 invariant 타입 파라미터라면, `Foo<*>`는 값을 읽을 때는 `Foo<out TUpper>`와 동일하고 값을 쓸 때는 `Foo<in Nothing>`와 동일하다.
 
-If a generic type has several type parameters each of them can be projected independently.
-For example, if the type is declared as `interface Function<in T, out U>` we can imagine the following star-projections:
+지네릭 타입이 여러 타입 파라미터를 가질 경우, 각각 독립적으로 project 할 수 있다.
+예를 들어, `interface Function<in T, out U>` 타입을 정의하면, 다음의 star-projections을 생각할 수 있다:
 
- - `Function<*, String>` means `Function<in Nothing, String>`;
- - `Function<Int, *>` means `Function<Int, out Any?>`;
- - `Function<*, *>` means `Function<in Nothing, out Any?>`.
+ - `Function<*, String>`은 `Function<in Nothing, String>`을 의미한다;
+ - `Function<Int, *>`은 `Function<Int, out Any?>`를 의미한다;
+ - `Function<*, *>`은 `Function<in Nothing, out Any?>`을 의미한다.
 
-*Note*: star-projections are very much like Java's raw types, but safe.
+*주의*: star-projections은 자바의 raw 타입과 매우 유사하지만 안전하다.
 
-# Generic functions
+# 지네릭 함수
 
-Not only classes can have type parameters. Functions can, too. Type parameters are placed before the name of the function:
+클래스만 타입 파라미터를 가질 수 있는 건 아니다. 함수도 가질 수 있다. 함수 이름 앞에 타입 파라미터를 위치시키면 된다:
 
 ``` kotlin
 fun <T> singletonList(item: T): List<T> {
   // ...
 }
 
-fun <T> T.basicToString() : String {  // extension function
+fun <T> T.basicToString() : String {  // 확장 함수
   // ...
 }
 ```
 
-If type parameters are passed explicitly at the call site, they are specified **after** the name of the function:
+타입 파라미터를 호출 위치(call site)에서 명시적으로 전달하려면, 함수 이름 **뒤에** 지정한다:
 
 ``` kotlin
 val l = singletonList<Int>(1)
 ```
 
-# Generic constraints
+# 지네릭 제약
 
-The set of all possible types that can be substituted for a given type parameter may be restricted by **generic constraints**.
+주어진 타입 파라미터를 교체하는 모든 가능한 타입은 **지네릭 제약**에 따라 제한된다.
 
 ## Upper bounds
 
-The most common type of constraint is an **upper bound** that corresponds to Java's *extends* keyword:
+제약의 가장 일반적인 타입은 자바의 *extends* 키워드에 해당하는 **upper bound**이다:
 
 ``` kotlin
 fun <T : Comparable<T>> sort(list: List<T>) {
@@ -277,15 +282,15 @@ fun <T : Comparable<T>> sort(list: List<T>) {
 }
 ```
 
-The type specified after a colon is the **upper bound**: only a subtype of `Comparable<T>` may be substituted for `T`. For example
+콜론 뒤에 지정한 타입이 **upper bound**이다. `Comparable<T>`의 하위타입만 `T`를 대체할 수 있다. 다음 예를 보자.
 
 ``` kotlin
-sort(listOf(1, 2, 3)) // OK. Int is a subtype of Comparable<Int>
-sort(listOf(HashMap<Int, String>())) // Error: HashMap<Int, String> is not a subtype of Comparable<HashMap<Int, String>>
+sort(listOf(1, 2, 3)) // OK. Int는 Comparable<Int>의 하위타입이다.
+sort(listOf(HashMap<Int, String>())) // Error: HashMap<Int, String>은 Comparable<HashMap<Int, String>>의 하위타입이 아니다.
 ```
 
-The default upper bound (if none specified) is `Any?`. Only one upper bound can be specified inside the angle brackets.
-If the same type parameter needs more than one upper bound, we need a separate **where**\-clause:
+지정하지 않을 경우 기본 upper bound는 `Any?`이다. 화살괄호 안에 오직 한 개의 upper bound만 지정할 수 있다.
+동일 타입 파라미터에 대해 한 개 이상의 upper bound가 필요하면, 별도의 **where**\-절을 사용해야 한다:
 
 ``` kotlin
 fun <T> cloneWhenGreater(list: List<T>, threshold: T): List<T>
