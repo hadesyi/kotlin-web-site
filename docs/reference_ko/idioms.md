@@ -7,7 +7,7 @@ title: "이디엄(Idioms)"
 
 # 이디엄(Idioms)
 
-코틀린에서 자주 사용하는 코딩 방식을 모은 것이다. 여러분도 자주 사용하는 코딩 방식이 있다면 공헌하고 풀 리퀘스트를 날려보자.
+코틀린에서 자주 사용하는 코딩 방식을 모은 것이다. 여러분도 자주 사용하는 코딩 방식이 있다면 풀 리퀘스트를 날려 공헌해보자.
 
 ### DTO 만들기 (POJO/POCO)
 
@@ -59,7 +59,7 @@ when (x) {
 }
 ```
 
-### 페어의 map/list 탐색
+### map/list pair 탐색
 
 ``` kotlin
 for ((k, v) in map) {
@@ -82,7 +82,7 @@ for (x in 2..10) { ... }
 val list = listOf("a", "b", "c")
 ```
 
-### 읽기 전요 맵
+### 읽기 전용 맵
 
 ``` kotlin
 val map = mapOf("a" to 1, "b" to 2, "c" to 3)
@@ -238,7 +238,7 @@ class Turtle {
 }
 
 val myTurtle = Turtle()
-with(myTurtle) { //draw a 100 pix square
+with(myTurtle) { // 100 픽셀 정사각형 그리기
     penDown()
     for(i in 1..4) {
         forward(100.0)

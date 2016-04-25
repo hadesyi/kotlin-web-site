@@ -2,10 +2,10 @@
 type: doc
 layout: reference
 category: "Basics"
-title: "기본 문법Basic Syntax"
+title: "기본 구문"
 ---
 
-# 기본 문법
+# 기본 구문
 
 ## 패키지 정의
 
@@ -33,7 +33,7 @@ fun sum(a: Int, b: Int): Int {
 }
 ```
 
-식 몸체를 갖는 리턴 타입 추론 함수:
+식(expression) 몸체를 갖고 리턴 타입을 추론하는 함수:
 
 ``` kotlin
 fun sum(a: Int, b: Int) = a + b
@@ -59,7 +59,7 @@ fun printSum(a: Int, b: Int) {
 
 ## 로컬 변수 정의
 
-한 번 할당Assign-once(읽기 전용) 로컬 변수:
+한 번만 할당하는 (읽기 전용) 로컬 변수:
 
 ``` kotlin
 val a: Int = 1
@@ -78,7 +78,7 @@ x += 1
 [프로퍼티와 필드](properties.html) 참고.
 
 
-## Comments
+## 주석
 
 자바와 자바스크립트처럼, 코틀린도 라인(end-of-line) 주석과 블록 주석을 지원한다.
 
@@ -91,9 +91,9 @@ x += 1
 
 자바와 달리, 코틀린은 블록 주석을 중첩할 수 있다.
 
-문서화를 위한 주석 문법에 대한 내용은 [코틀린 코드 문서화](kotlin-doc.html) 참고.
+문서화를 위한 주석 문법은 [코틀린 코드 문서화](kotlin-doc.html)를 참고한다.
 
-## Using string templates
+## 문자열 템플릿 사용하기
 
 ``` kotlin
 fun main(args: Array<String>) {
@@ -105,7 +105,7 @@ fun main(args: Array<String>) {
 
 [문자열 템플릿](basic-types.html#string-templates) 참고.
 
-## Using conditional expressions
+## 조건 식 사용하기
 
 ``` kotlin
 fun max(a: Int, b: Int): Int {
@@ -136,7 +136,7 @@ fun parseInt(str: String): Int? {
 }
 ```
 
- nullable 값을 리턴하는 함수 사용하기:
+nullable 값을 리턴하는 함수 사용하기:
 
 ``` kotlin
 fun main(args: Array<String>) {
@@ -150,7 +150,7 @@ fun main(args: Array<String>) {
 
   // 두 값이 null일 수 있으므로 `x * y`는 에러를 발생할 수 있다.
   if (x != null && y != null) {
-    // null 검사 후에 x와 y를 non-nullable로 자동으로 캐스팅
+    // null 검사 후에 x와 y를 non-nullable로 자동 변환
     print(x * y)
   }
 }
@@ -173,12 +173,12 @@ fun main(args: Array<String>) {
   print(x * y)
 ```
 
-[null 안전성 Null-safety](null-safety.html) 참고.
+[null-안전성](null-safety.html) 참고.
 
-## 타입 체크와 자동 변환 사용하기
+## 타입 검사와 자동 변환 사용하기
 
 *is*{: .keyword } 연산자는 대상이 지정한 타입의 인스턴스인지 검사한다.
-불변(immutable) 로컬 변수나 프로퍼티에 대해 특정 타입인지 검사하면, 명시적으로 타입 변환할 필요가 없다:
+불변(immutable) 로컬 변수나 프로퍼티에 대해 특정 타입인지 검사하면, 명시적으로 타입을 변환할 필요가 없다:
 
 ``` kotlin
 fun getStringLength(obj: Any): Int? {
@@ -204,7 +204,7 @@ fun getStringLength(obj: Any): Int? {
 }
 ```
 
-또는 심지어
+또는 심지어 아래도 가능
 
 ``` kotlin
 fun getStringLength(obj: Any): Int? {
@@ -280,7 +280,7 @@ if (x !in 0..array.lastIndex)
   print("Out")
 ```
 
-범위에 속한 숫자를 이터페이션:
+범위에 속한 숫자를 반복(iteration):
 
 ``` kotlin
 for (x in 1..5)
@@ -291,7 +291,7 @@ for (x in 1..5)
 
 ## 콜렉션 사용하기
 
-콜렉션 이터레이션:
+콜렉션 반복:
 
 ``` kotlin
 for (name in names)
@@ -301,7 +301,7 @@ for (name in names)
 *in*{: .keyword } 연산자를 사용해서 콜렉션이 객체를 포함하고 있는지 검사하기:
 
 ``` kotlin
-if (text in names) // names.contains(text) is called
+if (text in names) // names.contains(text) 호출
   print("Yes")
 ```
 
