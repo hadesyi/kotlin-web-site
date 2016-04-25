@@ -19,14 +19,14 @@ class Goo {}
 // ...
 ```
 
-클래스와 함수와 같은 소스 파일의 모든 내용은 선언한 패키지에 속한다.
+클래스나 함수와 같은 소스 파일의 모든 내용은 선언한 패키지에 속한다.
 위 예의 경우 `baz()`의 전체 이름은 `foo.bar.baz`이고 `Goo`의 전체 이름은 `foo.bar.Goo`이다.
 
 패키지를 지정하지 않으면, 파일의 모든 내용은 이름이 없는 "기본(default)" 패키지에 속한다.
 
 ## 임포트
 
-기본 임포트외에 각 파일은 자신의 import 디렉티브를 포함할 수 있다.
+기본 임포트 외에 각 파일은 자신의 import 디렉티브를 포함할 수 있다.
 임포트 구문은 [grammar](grammar.html#import)에서 설명한다.
 
 다음은 한 개 이름을 임포트하는 예이다.
@@ -35,10 +35,10 @@ class Goo {}
 import foo.Bar // Bar에 전체 이름을 사용하지 않고 접근할 수 있다.
 ```
 
-해당 범위 모든 요소(패키지, 클래스, 오브젝트 등)를 접근할 수도 있다:
+해당 범위의 모든 요소(패키지, 클래스, 오브젝트 등)에 접근할 수도 있다:
 
 ``` kotlin
-import foo.* // everything in 'foo'의 모든 요소에 접근 가능
+import foo.* // 'foo'의 모든 요소에 접근 가능
 ```
 
 이름이 충돌하면, *as*{: .keyword } 키워드로 로컬에서 사용할 이름을 변경해서 충돌을 피할 수 있다:
@@ -58,4 +58,4 @@ import bar.Bar as bBar // bBar는 'bar.Bar'를 의미
 
 ## 최상위 선언의 가시성
 
-최상위 선언이 *private*{: .keyword }이라면, 그것이 선언된 파일에 대해 private이다([가시성 제한자](visibility-modifiers.html) 참고)
+최상위 선언이 *private*{: .keyword }이면, 그것이 선언된 파일에 대해 private이다([가시성 제한자](visibility-modifiers.html) 참고)
