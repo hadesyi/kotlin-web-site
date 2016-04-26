@@ -7,14 +7,14 @@ title: "위임 프로퍼티(Delegated Properties)"
 
 # 위임 프로퍼티(Delegated Properties)
 
-필요할 때 수동으로 기능을 구현할 수 있지만, 한 번에 다 구현하고 라이브러리에 넣는 것이 매우 좋은 그런 종류의 프로퍼티가 존재한다.
-예를 들어, 다음 프로퍼티가 이에 해당한다.
+필요할 때 수동으로 기능을 구현할 수 있지만, 한번에 다 구현하고 라이브러리에 넣는 것이 매우 좋은 그런 종류의 프로퍼티가 존재한다.
+다음 프로퍼티가 이런 종류에 속한다.
 
 * lazy 프로퍼티: 최초에 접근할 때 값을 계산,
 * observable 프로퍼티: 이 프로퍼티가 바뀔 때 리스너에 통지,
 * 별도 필드가 아닌 맵에 저장한 프로퍼티.
 
-이 경우를 처리하기 위해 (다른 경우도 포함), 코틀린은 _위임 프로퍼티_를 지원한다:
+이런 경우를 포함한 여러 경우를 처리하기 위해 코틀린은 _위임 프로퍼티_를 지원한다:
 
 ``` kotlin
 class Example {
@@ -22,14 +22,10 @@ class Example {
 }
 ```
 
-위임 프로퍼티 구문은 `val/var <property name>: <Type> by <expression>`이다. *by*{:.keyword} 뒤에 식이 _delegate_이며,
-프로퍼티에 대응하는 `get()`(그리고 `set()`)을 delegate의 `getValue()`와 `setValue()` 메서드를 위임한다.
-프로퍼티 위임은 인터페이스를 구현하면 안 되고, `getValue()` 함수를 (그리고 *var*{:.keyword}의 경우 `setValue()` 함수를) 제공해야 한다.
+위임 프로퍼티 구문은 `val/var <property name>: <Type> by <expression>`이다. *by*{:.keyword} 뒤에 식이 _대리 객체(delegate)_이며,
+프로퍼티에 대한 `get()`과 `set()`을 대리 객체의 `getValue()`와 `setValue()` 메서드로 위임한다.
+프로퍼티 대리 객체는 인터페이스를 아무렇게나 구현하면 안 되고, `getValue()` 함수를 (그리고 *var*{:.keyword}의 경우 `setValue()` 함수를) 제공해야 한다.
 다음 예를 보자:
-The syntax is: `val/var <property name>: <Type> by <expression>`. The expression after *by*{:.keyword} is the _delegate_,
-because `get()` (and `set()`) corresponding to the property will be delegated to its `getValue()` and `setValue()` methods.
-Property delegates don’t have to implement any interface, but they have to provide a `getValue()` function (and `setValue()` --- for *var*{:.keyword}'s).
-For example:
 
 ``` kotlin
 class Delegate {
@@ -43,7 +39,7 @@ class Delegate {
 }
 ```
 
-`Delegate` 인스턴스에 위임하는 프로퍼티 `p`에서 값을 읽으면, `Delegate`의 `getValue()` 함수를 실행한다.
+`Delegate` 인스턴스에 위임하는 프로퍼티 `p`에서 값을 읽으면 `Delegate`의 `getValue()` 함수를 실행한다.
 이 메서드의 첫 번째 파라미터는 `p`를 포함한 객체이고 두 번째 파라미터는 `p` 자체에 대한 설명을 포함한다(예를 들어, 프로퍼티의 이름을 구할 수 있다).
 다음은 예이다:
 
@@ -58,7 +54,7 @@ println(e.p)
 Example@33a17727, thank you for delegating ‘p’ to me!
 ```
 
-비슷하게, `p`에 할당하면, `setValue()` 함수를 호출한다. 처음 두 파라미터는 동일하고, 세 번째 파라미터는 할당할 값을 갖는다:
+비슷하게 `p`에 할당하면 `setValue()` 함수를 호출한다. 처음 두 파라미터는 동일하고 세 번째 파라미터는 할당할 값을 갖는다:
 
 ``` kotlin
 e.p = "NEW"
@@ -70,32 +66,31 @@ e.p = "NEW"
 NEW has been assigned to ‘p’ in Example@33a17727.
 ```
 
-## 프로퍼티 위임 조건Property Delegate Requirements
+## 프로퍼티 위임 객체 조건
 
 위임 객체의 조건을 아래 요약했다.
 
-**읽기 전용** 프로퍼티(예, *val*{:.keyword})의 경우, 위임 객체는 다음 파라미터를 갖는 이름이 `getValue`인 함수를 제공해야 한다:
+**읽기 전용** 프로퍼티(예, *val*{:.keyword})에 대해 위임 객체는 다음 파라미터를 갖는 이름이 `getValue`인 함수를 제공해야 한다:
 
-* 리시버 ---  _프로퍼티 소유자_와 같거나 상위타입 (확장 프로퍼티의 경우 --- 확장한 타입),
+* 리시버 ---  _프로퍼티 소유자_와 같거나 상위타입(확장 프로퍼티의 경우 --- 확장한 타입),
 * 메타데이터 --- `KProperty<*>` 타입이거나 그 상위타입,
 
- 이 함수는 프로퍼티와 같은 타입을 (또는 그 하위타입을) 리턴해야 한다.
+이 함수는 프로퍼티와 같은 타입을 (또는 그 하위타입을) 리턴해야 한다.
 
-**수정 가능** 프로퍼티(*var*{:.keyword})의 경우, 위임 객체는 _추가로_ 다음 파라미터를 갖는 이름이 `setValue`인 함수를 제공해야 한다.
+**수정 가능** 프로퍼티(*var*{:.keyword})에 대해 위임 객체는 _추가로_ 다음 파라미터를 갖는 이름이 `setValue`인 함수를 제공해야 한다.
 
 * receiver --- `getValue()`와 동일,
 * metadata --- `getValue()`와 동일,
 * new value --- 프로퍼티와 같거나 상위타입이어야 한다.
 
 `getValue()`와 `setValue()` 함수는 위임 클래스의 멤버 함수나 확장 함수로 제공할 수 있다.
-후자의 경우 원래 이 함수를 제공하지 않는 객체에 프로퍼티를 위임해야 할 때 유용한다.
+확장 함수의 경우 원래 이 함수를 제공하지 않는 객체에 프로퍼티를 위임해야 할 때 유용한다.
 두 함수 모두 `operator` 키워드로 지정해야 한다.
 
 
 ## 표준 위임
 
-코틀린 표준 라이브러리는 몇 가지 유용한 종류의 위임을 위한 팩토리 메서드를 제공한다.
-The Kotlin standard library provides factory methods for several useful kinds of delegates.
+코틀린 표준 라이브러리는 몇 가지 유용한 종류의 위임 객체를 위한 팩토리 메서드를 제공한다.
 
 ### Lazy
 
@@ -116,16 +111,16 @@ fun main(args: Array<String>) {
 }
 ```
 
-lazy 프로퍼티의 실행은 기본적으로 **동기화**한다. 한 쓰레드만 값을 계산할 수 있으며, 모든 쓰레드는 같은 값을 보게 된다. 만약 초기화 과정을 동기화할 필요가 없다면,
-`lazy()` 함수의 파라미터에 `LazyThreadSafetyMode.PUBLICATION`을 전달해서 멀티 쓰레드가 동시에 실행할 수 있도록 할 수 있다.
-그리고, 항상 한 쓰레드에서만 초기화하는 것을 보장하려면, `LazyThreadSafetyMode.NONE` 모드를 사용하면 된다.
-이 모드는 쓰레드 안정을 보장하기 위한 오버헤드를 갖지 않는다.
+lazy 프로퍼티 연산은 기본적으로 **동기화**된다. 한 스레드만 값을 계산할 수 있으며 모든 스레드는 같은 값을 보게 된다. 만약 초기화 과정을 동기화할 필요가 없다면,
+`lazy()` 함수의 파라미터에 `LazyThreadSafetyMode.PUBLICATION`을 전달해서 여러 스레드가 동시에 실행할 수 있도록 할 수 있다.
+그리고 항상 한 스레드에서만 초기화하는 것을 보장하려면 `LazyThreadSafetyMode.NONE` 모드를 사용하면 된다.
+이 모드는 스레드 안정성을 보장하기 위한 오버헤드를 발생하지 않는다.
 
 
 ### Observable
 
-`Delegates.observable()`은 초기 값과 수정에 대한 핸들러를 인자로 갖는다.
-핸들러는 프로퍼티에 값을 할당할 때 마다 (할당 완료 후에)호출된다.
+`Delegates.observable()`은 초깃값과 수정에 대한 핸들러를 인자로 갖는다.
+프로퍼티에 값을 할당할 때마다 (할당 완료 후에) 핸들러를 호출한다.
 핸들러는 할당 대상 프로퍼티, 이전 값, 새로운 값을 파라미터로 갖는다:
 
 ``` kotlin
@@ -152,14 +147,14 @@ fun main(args: Array<String>) {
 first -> second
 ```
 
-만약 할당 과정 중간에 끼어들어 할당을 "거부(veto)"하고 싶다면, `observable()` 대신에 `vetoable()` 사용하면 된다.
-`vetoable`에 전달한 핸들러는 프로퍼티에 새 값을 할당하기 전에 호출된다.
+만약 할당 과정 중간에 끼어들어 할당을 "거부(veto)"하고 싶다면, `observable()` 대신에 `vetoable()`을 사용하면 된다.
+프로퍼티에 새 값을 할당하기 전에 `vetoable`에 전달한 핸들러를 호출한다.
 
 ## 맵에 프로퍼티 저장하기
 
-맵에 프로퍼티의 값을 저장하는 것은 일반적이다.
+프로퍼티의 값을 맵에 저장하는 것은 일반적이다.
 이는 JSON 파싱이나 다른 "동적" 작업을 할 때 흔한 일이다.
-이 경우, 위임 프로퍼티로 위임 객체 대신 맵 인스턴스 자체를 사용할 수 있다.
+이 경우 위임 프로퍼티로 위임 객체 대신 맵 인스턴스 자체를 사용할 수 있다.
 
 ``` kotlin
 class User(val map: Map<String, Any?>) {
@@ -168,7 +163,7 @@ class User(val map: Map<String, Any?>) {
 }
 ```
 
-이 예제에서, 생성자는 맵을 받는다:
+이 예제에서 생성자는 맵을 받는다:
 
 ``` kotlin
 val user = User(mapOf(
@@ -185,7 +180,7 @@ println(user.name) // "John Doe" 출력
 println(user.age)  // 25 출력
 ```
 
-읽기 전용 `Map` 대신에 `MutableMap`을 사용하면, *var*{:.keyword} 프로퍼티에도 동작한다.
+읽기 전용 `Map` 대신에 `MutableMap`을 사용하면 *var*{:.keyword} 프로퍼티에도 동작한다.
 
 ``` kotlin
 class MutableUser(val map: MutableMap<String, Any?>) {

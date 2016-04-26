@@ -5,7 +5,7 @@ category: "Syntax"
 title: "중첩 클래스"
 ---
 
-# 중첩 클래스
+# 중첩(Nested) 클래스
 
 다른 클래스에 클래스를 중첩할 수 있다.
 
@@ -20,9 +20,9 @@ class Outer {
 val demo = Outer.Nested().foo() // == 2
 ```
 
-## Inner 클래스
+## 내부(Inner) 클래스
 
-*inner*{: .keyword }로 지정하면 outer 클래스의 멤버로 클래스를 접근할 수 있다. inner 클래스는 outer 클래스의 객체에 대한 레퍼런스를 갖는다: 
+*inner*{: .keyword }로 지정하면 외부(outer) 클래스의 멤버로 클래스에 접근할 수 있다. 내부 클래스는 외부 클래스 객체에 대한 레퍼런스를 갖는다:
 
 ``` kotlin
 class Outer {
@@ -35,5 +35,4 @@ class Outer {
 val demo = Outer().Inner().foo() // == 1
 ```
 
-inner 클래스에서 *this*{: .keyword } 사용시 모호함에 대한 내용은 [한정된 *this*{: .keyword } 식](this-expressions.html)을 참고한다.
-
+내부 클래스에서 *this*{: .keyword } 사용시 모호함에 대한 내용은 [한정된 *this*{: .keyword } 식](this-expressions.html)을 참고한다.
