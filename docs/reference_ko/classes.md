@@ -30,23 +30,23 @@ class Empty
 
 ### 생성자
 
-코틀린의 클래스는 한 개의 **주요 생성자**와 한 개 이상의 **보조secondary 생성자**를 가질 수 있다.
-주요 생성자는 클래스 헤더에 속한다. 클래스 헤더는 클래스 이름(그리고 선택에 따라 타입 파라미터) 뒤에 위치한다.
+코틀린 클래스는 한 개의 **주요 생성자**와 한 개 이상의 **보조secondary 생성자**를 가질 수 있다.
+주요 생성자는 클래스 헤더에 속한다. 클래스 헤더는 클래스 이름 뒤에(타입 파라미터가 있다면 그 뒤에) 위치한다.
 
 ``` kotlin
 class Person constructor(firstName: String) {
 }
 ```
 
-주요 생성자가 애노테이션이나 가시성 제한자를 갖지 않으면, *constructor*{: .keyword } 키워드를 생략할 수 있다:
+주요 생성자가 애노테이션이나 가시성 제한자를 갖지 않으면 *constructor*{: .keyword } 키워드를 생략할 수 있다:
 
 ``` kotlin
 class Person(firstName: String) {
 }
 ```
 
-주요 생성자는 코드를 포함할 수 없다. 초기화 코드는 *init*{: .keyword } 키워드를 이용한
-**초기화 블록**에 위치할 수 있다.
+주요 생성자는 어떤 코드도 포함할 수 없다. 초기화 코드는 *init*{: .keyword } 키워드를 이용한
+**initializer 블록**에 위치할 수 있다.
 
 ``` kotlin
 class Customer(name: String) {
@@ -56,7 +56,7 @@ class Customer(name: String) {
 }
 ```
 
-주요 생성자의 파라미터는 초기화 블록과 클래스 몸체에 선언한 프로퍼티 초기화(initializer)에서 사용할 수 있다.
+주요 생성자의 파라미터는 initializer 초기화 블록과 클래스 몸체에 선언한 프로퍼티 initializer에서 사용할 수 있다.
 
 ``` kotlin
 class Customer(name: String) {
@@ -64,7 +64,7 @@ class Customer(name: String) {
 }
 ```
 
-주요 생성자에서 프로퍼티를 선언하고 초기화할 수 있도록 코틀린은 간결한 구문을 제공한다:
+코틀린은 주요 생성자에서 프로퍼티를 선언하고 초기화할 수 있도록 간결한 구문을 제공한다:
 
 
 ``` kotlin
@@ -73,10 +73,10 @@ class Person(val firstName: String, val lastName: String, var age: Int) {
 }
 ```
 
-일반 프로퍼티와 동일하게, 주요 생성자에 선언한 프로퍼티도 변경 가능(*var*{: .keyword })이거나
+일반 프로퍼티와 동일하게 주요 생성자에 선언한 프로퍼티도 변경 가능(*var*{: .keyword })하거나
 읽기 전용(*val*{: .keyword })이 될 수 있다.
 
-생성자가 애노테이션이나 가시성 제한자를 가질 경우, *constructor*{: .keyword } 키워드가 필요하며,
+생성자가 애노테이션이나 가시성 제한자를 가질 경우 *constructor*{: .keyword } 키워드가 필요하며,
 키워드 전에 제한자가 위치하게 된다:
 
 ``` kotlin
@@ -110,14 +110,14 @@ class Person(val name: String) {
 ```
 
 추상이 아닌 클래스가 어떤 생성자도 선언하지 않으면, 인자를 갖지 않은 주요 생성자를 만든다.
-클래스가 공개(public) 생성자를 갖는 것을 원치 않으면, 기본 가시성이 아닌 빈(empty) 주요 생성자를 추가해야 한다:
+클래스가 공개(public) 생성자를 갖는 것을 원치 않으면, 기본 가시성이 아닌 다른 가시성을 갖는 빈(empty) 주요 생성자를 추가해야 한다:
 
 ``` kotlin
 class DontCreateMe private constructor () {
 }
 ```
 
-> **주의**: JVM에서, 주요 생성자의 모든 파라미터가 기본 값을 가지면, 컴파일러는 기본 값을 사용하는 파라미터 없는 생성자를 추가로 만든다.
+> **주의**: JVM에서, 주요 생성자의 모든 파라미터가 기본 값을 가지면 컴파일러는 기본 값을 사용하는 파라미터 없는 생성자를 추가로 만든다.
 > 이는 Jackson이나 JPA처럼 파라미터없는 생성자를 이용해서 클래스 인스턴스를 생성하는 라이브러리에 대해 코틀린을 사용하기 쉽게 만들어준다.
 >
 > ``` kotlin
@@ -142,7 +142,7 @@ val customer = Customer("Joe Smith")
 
 클래스는 다음을 갖는다.
 
-* 생성자와 초기화 블록
+* 생성자와 initializer 블록
 * [함수](functions.html)
 * [프로퍼티](properties.html)
 * [중첩 클래스와 내부 클래스](nested-classes.html)
@@ -151,16 +151,16 @@ val customer = Customer("Joe Smith")
 
 ## 상속
 
-코틀린의 모든 클래스는 공통의 상위클래스(superclass)인 `Any`를 갖는다. `Any`는 상위타입(supertype)을 지정하지 않은 클래스의 기본 상위이다:
+코틀린의 모든 클래스는 공통의 상위클래스(superclass)인 `Any`를 갖는다. `Any`는 상위타입(supertype)을 지정하지 않은 클래스의 기본 상위타입이다:
 
 ``` kotlin
-class Example // 암무적으로 Any를 상속한다
+class Example // 기본으로 Any를 상속한다
 ```
 
 `Any`는 `java.lang.Object`가 아니다; 특히, `equals()`, `hashCode()` 그리고 `toString()`외에 다른 멤버를 갖지 않는다.
-보다 자세한 내용은 [자바 호환](java-interop.html#object-methods) 절을 참고한다.
+보다 자세한 내용은 [자바 상호운용](java-interop.html#object-methods) 절을 참고한다.
 
-상위타입을 직접 선언하려면, 클래스 헤더에 콜론 뒤에 타입을 위치시킨다:
+상위타입을 직접 선언하려면 클래스 헤더에 콜론 뒤에 타입을 위치시킨다:
 
 ``` kotlin
 open class Base(p: Int)
@@ -168,11 +168,11 @@ open class Base(p: Int)
 class Derived(p: Int) : Base(p)
 ```
 
-클래스가 주요 생성자를 가지면, 주요 생성자의 파라미터를 이용해서 베이스 타입을 바로 초기화한다.(그리고 초기화해야 한다.)
+클래스가 주요 생성자를 가지면 주요 생성자의 파라미터를 이용해서 베이스 타입을 바로 초기화할 수 있다(그리고 반드시 초기화해야 한다).
 
-클래스가 주요 생성자를 갖지 않으면, 각 보조 생성자는 *super*{: .keyword } 키워드를 사용해서 베이스 타입을 초기화하거나
+클래스가 주요 생성자를 갖지 않으면 각 보조 생성자는 *super*{: .keyword } 키워드를 사용해서 베이스 타입을 초기화하거나
 그것을 하는 다른 생성자에 위임해야 한다.
-이 경우 보조 생성자는 베이스 타입의 다른 생성자를 호출할 수 있다:
+이 경우 다른 보조 생성자는 베이스 타입의 다른 생성자를 호출할 수 있다:
 
 ``` kotlin
 class MyView : View {
@@ -191,7 +191,7 @@ Item 17: *Design and document for inheritance or else prohibit it* 내용을 따
 
 ### 멤버 오버라이딩
 
-앞서 언급한 것처럼, 콘틀린에서는 명시적으로 지정해야 한다. 자바와 달리, 코틀린은 오버라이딩 가능한 멤버(*open*이라고 부름)와
+앞서 언급한 것처럼 코틀린에서는 뭐든 명시적으로 만드는 것을 고수한다. 자바와 달리 코틀린은 오버라이딩 가능한 멤버(*열렸open*다고 함)와
 오버라이드를 위해 명시적으로 애노테이션을 붙여야 한다:
 
 ``` kotlin
@@ -205,10 +205,10 @@ class Derived() : Base() {
 ```
 
 `Derived.v()`는 *override*{: .keyword } 애노테이션이 필요하다. 붙이지 않으면 컴파일 에러가 발생한다.
-`Base.nv()`와 같이 함수에 *open*{: .keyword }을 붙이지 않으면, *override*{: .keyword }의 여부에 상관없이 하위클래스에서 동일 시그너처럴 갖는 메서드를 선언할 수 없다.
+`Base.nv()`와 같이 함수에 *open*{: .keyword }을 붙이지 않으면 *override*{: .keyword } 여부에 상관없이 하위클래스에서 동일 시그너처럴 갖는 메서드를 선언할 수 없다.
 (*open*{: .keyword } 애노테이션이 없는) final 클래스에는 open 멤버가 금지된다.
 
-*override*{: .keyword }를 갖는 멤버는 가 자체로 open이며, 하위클래스에서 오버라이딩할 수 있다. 오버라이딩을 막고 싶다면 *final*{: .keyword }을 사용하면 된다:
+*override*{: .keyword }를 갖는 멤버는 그 자체로 open이며 하위클래스에서 오버라이딩할 수 있다. 오버라이딩을 막고 싶다면 *final*{: .keyword }을 사용하면 된다:
 
 ``` kotlin
 open class AnotherDerived() : Base() {
@@ -216,23 +216,22 @@ open class AnotherDerived() : Base() {
 }
 ```
 
-#### Wait! How will I hack my libraries now?!
+#### 잠깐? 내가 만든 라이브러리를 어떻게 해킹하지?!
 
-클래스와 멤버가 기본적으로 final인 오버라이딩에 대한 접근 방식은 한 가지 이슈가 있다. 그것은 바로 라이브러리 설계자가
-오버라이딩하도록 의도하지 않은 어떤 메서드를 오버라이딩하거나 어떤 공격적 수정을 추가하기 위해 사용한 라이브러리에서 상속을 사용하기 어렵다는 점이다.
-One issue with our approach to overriding (classes and members final by default) is that it would be difficult to subclass something inside the libraries you use to override some method that was not intended for overriding by the library designer, and introduce some nasty hack there.
+오버라이딩에 대해 클래스와 멤버가 기본적으로 final인 접근 방식은 한 가지 이슈가 있다. 그것은 바로 라이브러리 설계자가
+오버라이딩하도록 의도하지 않은 어떤 메서드를 오버라이딩하거나 무언가 위험한(nasty) 해킹을 위해 라이브러리에 있는 무언가를 상속하기 어렵다는 점이다.
 
 우리는 다음과 같은 이유로 이는 단점이 아니라 생각한다:
 
-* 어쨋든 이런 류의 hack은 허용하지 않는게 Best practice다
-* 유사한 방식을 갖는 다른 언어(C++, C#)을 성공적으로 사용하고 있다
-* 실제로 hack을 원한다면, 여전히 방법은 있다. 자바로 해킹 코드를 작성해서 코틀린에서 호출할 수 있고 (*[자바 상호운용](java-interop.html) 참고*), Aspect 프레임워크로 해킹할 수 있다.
+* 어쨋든 이런 류의 해킹은 허용하지 않는게 최상(best practice)이다
+* 유사한 방식을 갖는 다른 언어(C++, C#)를 성공적으로 사용하고 있다
+* 실제로 해킹을 원한다면 방법이 존재한다. 자바로 해킹 코드를 작성해서 코틀린에서 호출할 수 있고 (*[자바 상호운용](java-interop.html) 참고*), Aspect 프레임워크로 해킹할 수 있다.
 
 ### 오버라이딩 규칙
 
 코틀린에서 구현 상속은 다음 규칙을 따른다: 클래스가 바로 상위의 여러 상위클래스에서 같은 멤버 구현을 상속하면,
-반드시 이 멤버를 오버라이딩하고 자신의 구현(아마도, 상속받은 것 중의 하나를 사용)을 제공해야 한다.
-사용할 상위타입의 구현을 지정하려면, 화살괄호에 상위타입 이름을 지정한 *super*{: .keyword }를 사용한다. 예, `super<Base>`:
+반드시 이 멤버를 오버라이딩하고 자신의 구현을 제공해야 한다(대게 상속받은 것 중의 하나를 사용하는 구현을 제공).
+사용할 상위타입의 구현을 지정하려면 화살괄호에 상위타입 이름을 지정한 *super*{: .keyword }를 사용한다. 예, `super<Base>`:
 
 ``` kotlin
 open class A {
@@ -241,7 +240,7 @@ open class A {
 }
 
 interface B {
-  fun f() { print("B") } // 인터페이스의 멤버는 기본이 'open'이다
+  fun f() { print("B") } // 인터페이스의 멤버는 기본적으로 'open'이다
   fun b() { print("b") }
 }
 
@@ -254,8 +253,8 @@ class C() : A(), B {
 }
 ```
 
-`A`와 `B`를 상속받는 것은 괜찮고, `a()`와 `b()`에는 문제가 없다. 왜냐면 `C`는 이 두 함수에 대해 각각 한 개의 구현만 상속받기 때문이다.
-하지만, `f()`의 경우 `C`가 두 개의 구현을 상속받기 때문에, `C`에 `f()`를 오버라이딩해서 모호함을 제거하는 구현을 제공해야 한다.
+`A`와 `B`를 상속받는 것은 괜찮으며, `a()`와 `b()`와 관련된 문제가 없다. 왜냐면 `C`는 이 두 함수에 대해 각각 한 개의 구현만 상속받기 때문이다.
+하지만, `f()`의 경우 `C`가 두 개의 구현을 상속받기 때문에, 모호함을 제거하기 위해 `C`에 `f()` 구현을 제공해야 한다.
 
 ## 추상 클래스
 
@@ -277,23 +276,23 @@ abstract class Derived : Base() {
 
 ## 컴페니언 오브젝트(Companion Objects)
 
-자바나 C#과 달리 코틀린의 클래스는 정적 메서드가 없다. 대신, 많은 경우 패키지 수준의 함수를 사용할 것을 추천한다.
+자바나 C#과 달리 코틀린의 클래스는 정적 메서드를 갖지 않는다. 많은 경우 그 대신 패키지 수준의 함수를 사용할 것을 권한다.
 
-만약 클래스 인스턴스없이 클래스의 내부에 접근해야하는 함수를 작성하고 싶다면(예, 팩토리 메서드),
-그 클래스 안에 [오브젝트 선언](object-declarations.html)의 멤버로 함수를 작성할 수 있다.
+만약 클래스 인스턴스없이 클래스의 내부에 접근해야하는 함수를 작성하고 싶다면(예, 팩토리 메서드)
+그 클래스 안에 [선언한 오브젝트](object-declarations.html)의 멤버로 함수를 작성할 수 있다.
 
-좀 더 구체적으로, 클래스 안에 [컴페니언 오브젝트](object-declarations.html#companion-objects)를 선언하면
+좀 더 구체적으로 말하면 클래스 안에 [컴페니언 오브젝트](object-declarations.html#companion-objects)를 선언하면
 클래스 이름만으로 자바/C#의 정적 메서드를 호출하는 것처럼 컴페니언 오브젝트의 멤버를 호출할 수 있다.
 
 
 ## 실드 클래스(Sealed Classes)
 
-값이 제한된 타입 집합 중 하나만 가질 수 있고 다른 타입을 가질 수 없도록 하고 싶을 때,
+가질 수 있는 타입을 특정 타입 집합으로 제한하고 다른 타입은 가질 수 없도록 하고 싶을 때,
 클래스 상속을 제한할 목적으로 실드 클래스를 사용한다. 실드 클래스는 어떤 의미에서 열거형 클래스의 확장이다.
-열거 타입은 제한된 값 집합을 가지지만, 각 열거형 상수는 오직 한 개 인스턴스만 존재한다.
+열거 타입은 제한된 값 집합을 갖지만, 각 열거형 상수는 오직 한 개 인스턴스만 존재한다.
 반면에 실드 클래스의 하위클래스는 상태를 포함할 수 있는 여러 인스턴스를 가질 수 있다.
 
-실드 클래스를 선언하려면, 클래스 이름 앞에 `sealed` 제한자를 쓰면 된다. 실드 클래스는 하위 클래스를 가질 수 있지만,
+실드 클래스를 선언하려면 클래스 이름 앞에 `sealed` 제한자를 쓰면 된다. 실드 클래스는 하위 클래스를 가질 수 있지만
 모든 하위 클래스는 실드 클래스 선언 자체에 중첩해야 한다.
 
 ``` kotlin
@@ -307,7 +306,7 @@ sealed class Expr {
 실드 클래스의 하위 클래스를 확장하는 클래스(indirect inheritors)는 어디든 위치할 수 있다. 실드 클래스 선언 내부에 위치할 필요는 없다.
 
 실드 클래스의 최대 장점은 [`when` 식](control-flow.html#when-expression)과 함께 사용할 수 있다는 점이다.
-when 문이 모든 경우를 다루는지 확인할 수 있기 때문에, `else` 절을 추가할 필요가 없다.
+모든 경우를 다루는지 확인할 수 있다면, `else` 절을 추가할 필요가 없다.
 
 ``` kotlin
 fun eval(expr: Expr): Double = when(expr) {
