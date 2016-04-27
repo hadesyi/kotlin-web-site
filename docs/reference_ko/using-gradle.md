@@ -6,7 +6,7 @@ title: "그래들 사용하기"
 
 # 그래들 사용하기
 
-그래들에서 코틀린을 빌드하려면 [*kotlin-gradle* 플러그인을 설정](#plugin-and-versions)하고,  프로젝트에 [플러그인을 적용](#targeting-the-jvm)하고, [*kotlin-stdlib* 의존을 추가](#configuring-dependencies)해야 한다. IntelliJ IDEA에서는 Tools | Kotlin | Configure Kotlin를 사용하면 자동으로 처리한다.
+그래들에서 코틀린을 빌드하려면 [*kotlin-gradle* 플러그인을 설정](#plugin-and-versions)하고 프로젝트에 [플러그인을 적용](#targeting-the-jvm)하고 [*kotlin-stdlib* 의존을 추가](#configuring-dependencies)해야 한다. IntelliJ IDEA에서는 Tools | Kotlin | Configure Kotlin를 사용하면 자동으로 처리한다.
 
 ## 플러그인과 버전
 
@@ -49,7 +49,7 @@ buildscript {
 
 ## JVM 대상
 
-JVM을 대상으로 하려면, 코틀린 플러그인을 적용하면 된다.
+JVM을 대상으로 하려면 kotlin 플러그인을 적용하면 된다.
 
 ``` groovy
 apply plugin: "kotlin"
@@ -82,7 +82,7 @@ sourceSets {
 apply plugin: "kotlin2js"
 ```
 
-이 플러그인은 코틀린 파일만 처리하므로, (동일 프로젝트에 자바 파일을 포함하고 있다면) 코틀린과 자바 파일을 별도로 구분하는게 좋다. JVM도 대상으로 하면서, 기본 규칙을 사용하지 않으면, *sourceSets*으로 소스 폴더를 지정해야 한다.
+이 플러그인은 코틀린 파일만 처리하므로 (동일 프로젝트에 자바 파일을 포함하고 있다면) 코틀린과 자바 파일을 별도로 구분하는게 좋다. JVM도 대상으로 하면서 기본 규칙을 사용하지 않으면, *sourceSets*으로 소스 폴더를 지정해야 한다.
 
 ``` groovy
 sourceSets {
@@ -90,7 +90,7 @@ sourceSets {
 }
 ```
 
-재사용 가능한 라이브러리를 만들고 싶다면, 바이너리 디스크립터를 가진 JS 파일을 추가로 생성하기 위해 `kotlinOptions.metaInfo`를 사용한다.
+재사용 가능한 라이브러리를 만드려면 바이너리 디스크립터를 가진 JS 파일을 추가로 생성하기 위해 `kotlinOptions.metaInfo`를 사용한다.
 이 파일을 변환 결과와 함께 배포해야 한다.
 
 ``` groovy
@@ -102,7 +102,7 @@ compileKotlin2Js {
 
 ## 안드로이드 대상
 
-안드로이드의 그래들 모델은 보통 그래들과 약간 다르다. 따라서, 코틀린으로 작성한 안드로이드 프롤젝트를 빌드하려면 *kotlin* 대신 *kotlin-android* 플러그인을 사용해야 한다:
+안드로이드의 그래들 모델은 일반적인 그래들과 약간 다르다. 따라서 코틀린으로 작성한 안드로이드 프롤젝트를 빌드하려면 *kotlin* 대신 *kotlin-android* 플러그인을 사용해야 한다:
 
 ``` groovy
 buildscript {
@@ -114,7 +114,7 @@ apply plugin: 'kotlin-android'
 
 ### 안드로이드 스튜디오
 
-안드로이드 스튜디오를 사용하면, android에 다음 코드를 추가해야 한다:
+안드로이드 스튜디오를 사용하면 android에 다음 코드를 추가해야 한다:
 
 ``` groovy
 android {
@@ -126,13 +126,13 @@ android {
 }
 ```
 
-이 설정은 안드로이드 스튜디오가 코틀린 디렉토리를 소스 루트로 사용하게 한다. 따라서, 프로젝트 모델을 IDE에 로딩할 때 올바르게 인식한다.
+이 설정은 안드로이드 스튜디오가 코틀린 디렉토리를 소스 루트로 사용하게 한다. 따라서 프로젝트 모델을 IDE에 로딩할 때 올바르게 인식한다.
 
 
 
 ## 의존 설정
 
-kotlin-gradle-plugin 의존과 함께, 코틀린 표준 라이브러리에 대한 의존을 추가해야 한다.
+kotlin-gradle-plugin 의존과 함께 코틀린 표준 라이브러리에 대한 의존을 추가해야 한다.
 
 ``` groovy
 buildscript {
@@ -156,7 +156,7 @@ dependencies {
 }
 ```
 
-프로젝트에서 코틀린 리플렉션이나 테스트 기능을 사용하려면, 해당 의존을 추가로 넣는다:
+프로젝트에서 코틀린 리플렉션이나 테스트 기능을 사용하려면 해당 의존을 추가로 넣는다:
 
 ``` groovy
 compile "org.jetbrains.kotlin:kotlin-reflect:$kotlin_version"

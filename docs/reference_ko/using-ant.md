@@ -2,8 +2,7 @@
 type: doc
 layout: reference
 title: "앤트 사용하기"
-description: "이 튜토리얼은 코틀린 코드를 포함한 애플리케이션을 작성하기 위해 앤트를 사용하는 여러 상황을 설명한다.
-This tutorial walks you through different scenarios when using Ant for building applications that contain Kotlin code"
+description: "이 튜토리얼은 코틀린 코드를 포함한 애플리케이션을 작성하기 위해 앤트를 사용하는 여러 상황을 설명한다."
 ---
 
 # 앤트 사용하기
@@ -21,7 +20,7 @@ This tutorial walks you through different scenarios when using Ant for building 
 
 ## JVM 대상으로 코틀린 소스만 컴파일하기
 
-프로젝트가 코틀린 소스 코드로만 구성되어 있을 때, 프로젝트를 컴파일하는 가장 쉬운 방법은 *kotlinc* 태스크를 사용하는 것이다.
+프로젝트가 코틀린 소스 코드로만 구성되어 있을 때 프로젝트를 컴파일하는 가장 쉬운 방법은 *kotlinc* 태스크를 사용하는 것이다.
 
 ``` xml
 <project name="Ant Task Test" default="build">
@@ -37,7 +36,7 @@ ${kotlin.lib}는 코틀린 표준 컴파일러의 압축을 푼 폴더를 가리
 
 ## JVM 대상으로 여러 루트를 갖는 코틀린 소스만 컴파일하기
 
-프로젝트가 여러 소스 루트를 가지면, *src* 요소를 사용해서 경로를 정의한다.
+프로젝트가 여러 소스 루트를 가지면 *src* 요소를 사용해서 경로를 정의한다.
 
 ``` xml
 <project name="Ant Task Test" default="build">
@@ -54,8 +53,8 @@ ${kotlin.lib}는 코틀린 표준 컴파일러의 압축을 푼 폴더를 가리
 
 ## JVM 대상으로 코틀린과 자바 소스가 함께 컴파일하기
 
-프로젝트에 코틀린과 자바 소스 코드가 함께 있다면, *kotlinc*를 사용할 수도 있지만,
-태스크 파라미터 중복을 피하기위해, *withKotlin* 태스크를 사용할 것을 권한다.
+프로젝트에 코틀린과 자바 소스 코드가 함께 있다면 *kotlinc*를 사용할 수도 있지만,
+태스크 파라미터 중복을 피하기 위해 *withKotlin* 태스크를 사용할 것을 권한다.
 
 ``` xml
 <project name="Ant Task Test" default="build">
@@ -111,8 +110,8 @@ ${kotlin.lib}는 코틀린 표준 컴파일러의 압축을 푼 폴더를 가리
 
 ## 자바스크립트 대상으로 한 개 소스 폴더와 meatInfo 옵션 사용하기
 
-코틀린/자바스크립트 라이브러리로 변환 결과를 배포하길 원한다면, `metaInfo` 옵션을 유용하게 사용할 수 있다.
-`metaInfo` 옵션을 `true`로 설정하면, 컴파일할 때 바이너리 메타데이터를 가진 JS 파일을 추가로 생성한다. 변환 결과와 함께 이 파일을 배포해야 한다.
+코틀린/자바스크립트 라이브러리로 변환 결과를 배포하길 원한다면 `metaInfo` 옵션을 유용하게 사용할 수 있다.
+`metaInfo` 옵션을 `true`로 설정하면 컴파일할 때 바이너리 메타데이터를 가진 JS 파일을 추가로 생성한다. 변환 결과와 함께 이 파일을 배포해야 한다.
 
 ``` xml
 <project name="Ant Task Test" default="build">
@@ -142,10 +141,10 @@ ${kotlin.lib}는 코틀린 표준 컴파일러의 압축을 푼 폴더를 가리
 
 | 이름 | 설명 | 필수 | 기본 값 |
 |------|-------------|----------|---------------|
-| `output`  | 대상 디렉토리나 .jar 파일 이름 | Yes |  |
+| `output`  | 대상 디렉토리나 jar 파일 이름 | Yes |  |
 | `classpath`  | 컴파일 클래스패스 | No |  |
 | `classpathref`  | 컴파일 클래스패스 참조 | No |  |
-| `includeRuntime`  | `output`이 .jar 파일일 때 코틀린 런타임 라이브러리를 jar에 포함할지 여부를 지정 | No | true  |
+| `includeRuntime`  | `output`이 jar 파일일 때 코틀린 런타임 라이브러리를 jar에 포함할지 여부를 지정 | No | true  |
 | `moduleName` | 컴파일 할 모듈 이름 | No | (대상을 지정했다면) 대상 이름 아니면 프로젝트 이름 |
 
 
