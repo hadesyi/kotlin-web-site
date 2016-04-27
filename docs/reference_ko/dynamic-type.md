@@ -10,8 +10,8 @@ title: "동적 타입"
 > 동적 타입은 JVM 대상 코드에서 지원하지 않는다
 {:.note}
 
-정적 타입 언어이지만, 코틀린은 여전히 자바스크립트 에코시스템과 같이 untyped거나 타입이 유연한 환경에서도 돌아야 한다.
-이런 쓰임새를 쉽게 하기 위해, 언어에서 `동적` 타입을 사용할 수 있다:
+정적 타입 언어이지만, 코틀린은 자바스크립트 에코시스템과 같이 untyped거나 타입이 유연한 환경에서도 돌아야 한다.
+이런 환경을 쉽게 처리하기 위해 언어에서 `동적` 타입을 사용할 수 있다:
 
 ``` kotlin
 val dyn: dynamic = ...
@@ -23,16 +23,13 @@ val dyn: dynamic = ...
   - 이 값에는 `null`-검사를 할 수 없다
 
 `dynamic`의 가장 특별한 기능은 `dynamic` 변수에 대해 파라미터를 갖는 함수나 **모든** 프로퍼티를 호출할 수 있다는 것이다.
-The most peculiar feature of `dynamic` is that we are allowed to call **any** property or function with any parameters
-on a `dynamic` variable:
 
 ``` kotlin
 dyn.whatever(1, "foo", dyn) // 어디에도 'whatever'가 정의되어 있지 않음
 dyn.whatever(*arrayOf(1, 2, 3))
 ```
 
-자바스크립트 플랫폼에서, 이 코드는 코틀린에서 `dyn.whatever(1)`인 코드가 생성한 자바스크립트 코드에서 `dyn.whatever(1)`가 되도록
-있는 그대로 컴파일된다.
+자바스크립트 플랫폼에서, 이 코드는 있는 그대로 컴파일된다. 즉, 코틀린의 `dyn.whatever(1)` 코드가 생성한 자바스크립트 코드에서도 `dyn.whatever(1)`가 된다.
 
 동적 호출은 항상 결과로 `dynamic`을 리턴하므로 자유롭게 호출을 연결할 수 있다:
 
@@ -40,7 +37,7 @@ dyn.whatever(*arrayOf(1, 2, 3))
 dyn.foo().bar.baz()
 ```
 
-동적 호출에 람다를 전달하면, 기본적으로 모든 파라미터는 `dynamic` 타입을 갖는다:
+동적 호출에 람다를 전달하면 기본적으로 모든 파라미터는 `dynamic` 타입을 갖는다:
 
 ``` kotlin
 dyn.foo {

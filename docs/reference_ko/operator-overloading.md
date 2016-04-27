@@ -7,8 +7,8 @@ category: "Syntax"
 
 # 연산자 오버로딩
 
-코틀린은 작성한 타입에 대해 미리 정의한 연산자 집합을 위한 구현을 제공할 수 있다. 이들 연산자는 (`+`나 `*`와 같은) 고정된 부호를 가지며 [우선순위](grammar.html#precedence)가 고정되어 있다.
-연산자를 구현하려면, 고정된 이름을 가진 [멤버 함수](functions.html#member-functions)나 [확장 함수](extensions.html)를 제공하면 된다. 대응하는 타입은 이항 연산자의 경우 좌측 피연산자 타입이고 단항 연산자는 인자 타입이다.
+코틀린은 작성한 타입에 대해 미리 정의한 연산자의 구현을 제공할 수 있다. 이들 연산자는 (`+`나 `*`와 같은) 고정된 부호를 가지며 [우선순위](grammar.html#precedence)가 고정되어 있다.
+연산자를 구현하려면 고정된 이름을 가진 [멤버 함수](functions.html#member-functions)나 [확장 함수](extensions.html)를 제공하면 된다. 대응하는 타입은 이항 연산자의 경우 좌측 피연산자 타입이고 단항 연산자는 인자 타입이다.
 연산자를 오버로딩하는 함수는 `operator` 제한자로 지정해야 한다.
 
 ## 규칙
@@ -23,15 +23,15 @@ category: "Syntax"
 | `-a` | `a.unaryMinus()` |
 | `!a` | `a.not()` |
 
-예를 들어, 컴파일러는 `+a` 식을 다음 절차에 따라 처리한다:
+예를 들어 컴파일러는 `+a` 식을 다음 절차에 따라 처리한다:
 
 * `a`의 타입을 결정한다. 타입을 `T`라고 하자.
 * 리시버 `T`에서 파라미터를 갖지 않고 `operator` 제한자로 지정한 `unaryPlus()` 함수(멤버 함수나 확장 함수)를 찾는다.
 * 함수가 없거나 모호하면 컴파일 에러를 낸다.
-* 함수가 존재하고 리턴 타입이 `R`이면, `+a` 식은 `R` 타입을 갖는다.
+* 함수가 존재하고 리턴 타입이 `R`이면 `+a` 식은 `R` 타입을 갖는다.
 
 이 오퍼레이션과 다른 오퍼레이션은 [기본 타입](basic-types.html)에 맞게 최적화되므로
-오프레이션을 위한 함수 호출에 따른 오버헤드는 없다.
+오프레이션을 위한 함수 호출에 따른 오버헤드가 없다.
 
 | 식 | 변환 |
 |------------|---------------|
@@ -39,18 +39,17 @@ category: "Syntax"
 | `a--` | `a.dec()` + 아래 참고 |
 
 
-이 오퍼레이션은 리시버 변경과 (선택적으로) 값을 리턴하는 것을 지원해야 한다.
-These operations are supposed to change their receiver and (optionally) return a value.
+이 오퍼레이션은 리시버를 변경하면서 (선택적으로) 값을 리턴해야 한다.
 
-> **`inc()/dec()`는 리시버 객체를 변경하면 안 된다**.<br>
+> **`inc()/dec()`에서 리시버 객체를 변경하면 안 된다**.<br>
 > "리시버를 변경한다"는 것은 리시버 객체가 아닌 _리시버-변수_를 의미한다.
 {:.note}
 
-컴파일러는 다음 과정에 따라 `a++`과 같은 *후위* 연산자를 해석한다:
+컴파일러는 다음 과정에 따라 `a++`와 같은 *후위* 연산자를 해석한다:
 
 * `a`의 타입을 결정한다. 타입을 `T`라고 해 보자.
 * 리시버 타입 `T`에서 `operator` 제한자를 갖고 파라미터가 없는 `inc()` 함수를 찾는다.
-* 함수가 `R` 타입을 리턴하면, `R`은 `T`의 하위타입이어야 한다.
+* 함수가 `R` 타입을 리턴하면 `R`은 `T`의 하위타입이어야 한다.
 
 식의 계산 결과는 다음과 같다:
 
@@ -60,12 +59,12 @@ These operations are supposed to change their receiver and (optionally) return a
 
 `a--` 처리 과정도 완전히 동일하다.
 
-`++a`와 `--a`와 같은 *전위* 식도 같은 방식으로 동작하며, 결과는 다음과 같다:
+`++a`와 `--a`와 같은 *전위* 식도 같은 방식으로 동작한다. 결과는 다음과 같다:
 
 * `a.inc()`의 결과를 `a`에 할당한다,
 * 식의 결과로 `a`의 새 값을 리턴한다.
 
-### 이항 오프레이션
+### 이항 오퍼레이션
 
 | 식 | 변환 |
 | -----------|-------------- |
@@ -76,14 +75,14 @@ These operations are supposed to change their receiver and (optionally) return a
 | `a % b` | `a.mod(b)` |
 | `a..b ` | `a.rangeTo(b)` |
 
-이 표의 오퍼레이션에 대해, 컴파일러는 단순히 *변환* 칼럼의 식을 실행한다.
+이 표의 오퍼레이션에 대해 컴파일러는 단순히 *변환* 칼럼의 식을 실행한다.
 
 | Expression | Translated to |
 | -----------|-------------- |
 | `a in b` | `b.contains(a)` |
 | `a !in b` | `!b.contains(a)` |
 
-`in`과 `!in`의 경우, 프로시저는 같고, 인자의 순서가 반대이다.
+`in`과 `!in`의 경우 절차는 같고 인자의 순서가 반대이다.
 {:#in}
 
 | 심볼 | 변환 |
@@ -95,7 +94,7 @@ These operations are supposed to change their receiver and (optionally) return a
 | `a[i, j] = b` | `a.set(i, j, b)` |
 | `a[i_1, ...,  i_n] = b` | `a.set(i_1, ..., i_n, b)` |
 
-대괄호는 해당 개수만큼 인자를 가진 `get`과 `set` 메서드 호출라 변환된다.
+대괄호는 해당 개수만큼 인자를 가진 `get`과 `set` 메서드 호출로 변환된다.
 
 | 심볼 | 변환 |
 |--------|---------------|
@@ -115,10 +114,10 @@ These operations are supposed to change their receiver and (optionally) return a
 | `a %= b` | `a.modAssign(b)` |
 {:#assignments}
 
-`a += b`와 같은 할당 오퍼레이션의 경우, 컴파일러가 다음 과정을 수행한다:
+`a += b`와 같은 할당 오퍼레이션의 경우 컴파일러가 다음 과정을 수행한다:
 
 * 우측 칼럼의 함수를 사용할 수 있으면
-  * 해당 이항 함수(`plusAssign()`의 경우 `plus()`)가 존재하면, 에러를 발생한다(모호함)
+  * 해당 이항 함수(`plusAssign()`의 경우 `plus()`)가 존재하면 에러를 발생한다(모호함)
   * 리턴 타입이 `Unit`인지 확인하고 아니면 에러를 발생한다.
   * `a.plusAssign(b)` 코드를 생성한다.
 * 그렇지 않으면, `a = a + b` 코드 생성을 시도한다(이는 타입 검사를 포함한다. `a + b`의 타입은 `a`의 하위타입이어야 한다).
@@ -131,10 +130,9 @@ These operations are supposed to change their receiver and (optionally) return a
 | `a == b` | `a?.equals(b) ?: b === null` |
 | `a != b` | `!(a?.equals(b) ?: b === null)` |
 
-*노트*: `===`와 `!==` (동일성 검사)는 오버로딩할 수 없으므로, 어떤 규칙도 존재하지 않는다
+*노트*: `===`와 `!==` (동일성 검사)는 오버로딩할 수 없으므로 어떤 규칙도 존재하지 않는다
 
-`==` 오퍼레이션은 특별하다: `null`을 걸러내고, `null == null`이 `true`인 복잡한 식으로 바뀐다.
-The `==` operation is special: it is translated to a complex expression that screens for `null`'s, and `null == null` is `true`.
+`==` 오퍼레이션은 특수하다: `null`을 걸러내어 `null == null`이 `true`가 되는 복잡한 식으로 바뀐다.
 
 | 심볼 | 볂솬 |
 |--------|---------------|
@@ -143,7 +141,7 @@ The `==` operation is special: it is translated to a complex expression that scr
 | `a >= b` | `a.compareTo(b) >= 0` |
 | `a <= b` | `a.compareTo(b) <= 0` |
 
-모든 비교는 `compareTo`에 대한 호출로 바뀌며, 이 함수는 `Int`를 리턴해야 한다.
+모든 비교는 `compareTo`에 대한 호출로 바뀐다. `compareTo` 함수는 `Int`를 리턴해야 한다.
 
 ## 네임드 함수에 대한 중위 호출
 

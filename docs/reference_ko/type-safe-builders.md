@@ -9,13 +9,13 @@ title: "타입-안전 그루비-스타일 빌더"
 
 [빌더](http://www.groovy-lang.org/dsls.html#_nodebuilder) 개념은 *그루비* 커뮤니티에서 더 유명하다.
 빌더는 반쯤 선언적인 방법으로 데이터를 정의할 수 있도록 해 준다. 빌더의 좋은 예로
-[generating XML](http://www.groovy-lang.org/processing-xml.html#_creating_xml),
-[laying out UI components](http://www.groovy-lang.org/swing.html),
-[describing 3D scenes](http://www.artima.com/weblogs/viewpost.jsp?thread=296081) 등이 있다.
+[XML 생성](http://www.groovy-lang.org/processing-xml.html#_creating_xml),
+[컴포넌트 배치](http://www.groovy-lang.org/swing.html),
+[3D 장면 묘사](http://www.artima.com/weblogs/viewpost.jsp?thread=296081) 등이 있다.
 
-많은 유스케이스를 위해, 코틀린은 *type-check* 빌더를 제공한다. 이 빌더는 예로 든 것을 그루비 자체에서 만든 동적-타입 구현보다 더 매력적으로 만들어준다.
+많은 유스케이스를 위해 코틀린은 *타입-검사(type-check)* 빌더를 제공한다. 이 빌더는 예로 든 것을 그루비 자체에서 만든 동적-타입 구현보다 더 매력적으로 만들어준다.
 
-그 외 나머지를 위해 코틀린은 동적 타입 빌더를 제공한다.
+나머지 경우를 위해 코틀린은 동적 타입 빌더를 지원한다.
 
 ## 타입-안전 빌더 예제
 
@@ -56,7 +56,7 @@ fun result(args: Array<String>) =
 ```
 
 이 코드는 완전히 올바른 코틀린 코드이다.
-이 코드를 브라우저에서 수정하고 실행해 볼 수 있다[여기](http://try.kotlinlang.org/#/Examples/Longer examples/HTML Builder/HTML Builder.kt).
+이 코드를 브라우저에서 수정하고 실행해 볼 수 있다[(여기)](http://try.kotlinlang.org/#/Examples/Longer examples/HTML Builder/HTML Builder.kt).
 
 ## 동작 방식
 
@@ -108,7 +108,7 @@ html {
 }
 ```
 
-그러면, 이 함수 호출은 무엇을 할까? 위에 정의한 `html` 함수의 몸체를 보자.
+그러면 이 함수 호출은 무엇을 할까? 위에 정의한 `html` 함수의 몸체를 보자.
 이 함수는 새로운 `HTML` 인스턴스를 생성하고, 인자로 전달받은 함수를 호출해서 생성한 인스턴스를 초기화하고(이 예제에서는
 `HTML` 인스턴스의 `head`와 `body`를 호출한다),
 그 인스턴스를 리턴한다.
@@ -133,7 +133,7 @@ fun body(init: Body.() -> Unit) : Body {
 }
 ```
 
-실제 이 두 함수는 같은 것을 하므로, 지네릭 버전인 `initTag`를 만들 수 있다:
+실제 이 두 함수는 같은 것을 하므로 지네릭 버전인 `initTag`를 만들 수 있다:
 
 ``` kotlin
   protected fun <T : Element> initTag(tag: T, init: T.() -> Unit): T {
@@ -174,10 +174,10 @@ fun String.unaryPlus() {
 }
 ```
 
-따라서, 여기서 접두문자 `+`는 문자열을 `TextElement`의 인스턴스로 감싸고, 그 인스턴스를 `children` 콜렉션에 추가해서,
+따라서, 여기서 접두문자 `+`는 문자열을 `TextElement`의 인스턴스로 감싸고 그 인스턴스를 `children` 콜렉션에 추가해서,
 그것이 태그 트리에 알맞은 부분이 되도록 한다.
 
-이 모든 것이 `com.example.html` 패키지에 정의되어 있는데, 위 벌더 예제는 처음에 이 패키지를 임포트한다.
+이 모든 것이 `com.example.html` 패키지에 정의되어 있는데 위 벌더 예제는 처음에 이 패키지를 임포트한다.
 다음 절에서 이 패키지의 전체 정의를 읽을 수 있다.
 
 ## `com.example.html` 패키지의 전체 정의

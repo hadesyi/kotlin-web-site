@@ -8,7 +8,7 @@ title: "범위"
 # 범위
 
 범위(Range) 식은 연산자 형식인 ".."를 갖는 `rangeTo` 함수로 구성된다. 이 식은 *in*{: .keyword }이나 *!in*{: .keyword }과 함께 쓰인다.
-모든 Comparable 타입에 대해 범위를 정의할 수 있으며, 기본 정수 타입은 최적화한 구현을 제공한다. 다음은 Range의 사용 예이다.
+모든 Comparable 타입에 대해 범위를 정의할 수 있으며 기본 정수 타입은 최적화한 구현을 제공한다. 다음은 범위 사용 예이다.
 
 ``` kotlin
 if (i in 1..10) { // 1 <= i && i <= 10와 동일
@@ -31,7 +31,7 @@ for (i in 4..1) print(i) // 아무것도 출력하지 않음
 for (i in 4 downTo 1) print(i) // "4321" 출력
 ```
 
-1씩 증가/감소가 아닌 지정한 단계만큼 숫자를 이터레이션하는 것은? 물론, 가능하다. `step()` 함수를 쓰면 된다.
+1씩 증가/감소가 아닌 지정한 단계만큼 숫자를 이터레이션하는 것은? 물론 가능하다. `step()` 함수를 쓰면 된다.
 
 ``` kotlin
 for (i in 1..4 step 2) print(i) // "13" 출력
@@ -44,7 +44,7 @@ for (i in 4 downTo 1 step 2) print(i) // "42" 출력
 
 범위는 라이브러리의 공통 인터페이스인 `ClosedRange<T>`를 구현한다.
 
-`ClosedRange<T>`는 comparable 타입에 정의된 수학적 의미의 닫힌 구간을 뜻한다.
+`ClosedRange<T>`는 Comparable 타입에 대한 수학적 의미의 닫힌 구간을 뜻한다.
 이는 범위에 포함되는 `start`와 `endInclusive`의 두 끝지점을 갖는다.
 주요 오퍼레이션인 `contains'는 보통 *in*{: .keyword }/*!in*{: .keyword } 연산자 형식으로 사용한다.
 
@@ -53,8 +53,8 @@ for (i in 4 downTo 1 step 2) print(i) // "42" 출력
 첫 번째 요소는 `first`이고, 다음 요소는 이전 요소에 `increment`를 더한 값이다.
 `last` 요소는 프로그레이션이 비어(emptty) 있지 않으면 항상 도달한다.
 
-프로그레션은 `Iterable<N>`은 하위 타입으로 `N`은 `Int`, `Long`, `Char`가 올 수 있으며,
-*for*{: .keyword }-루프와 `map`, `filter`와 같은 함수에서 사용할 수 있다.
+프로그레션은 `Iterable<N>`의 하위 타입으로 `N`에는 `Int`, `Long`, `Char`가 올 수 있으며,
+*for*{: .keyword }-루프나 `map`, `filter`와 같은 함수에서 사용할 수 있다.
 프로그레션에 대한 이터레이션은 자바/자바스크립에서 다음의 인덱스 기반 *for*{: .keyword }-루프와 동일하다:
 
 ``` java
@@ -73,7 +73,7 @@ for (int i = first; i != last; i += increment) {
   IntProgression.fromClosedRange(start, end, increment)
 ```
 
-양수 `increment` 기준으로 `env` 값보다 크지 않은 최대 값을 또는 음수 `increment`에 대해 `end` 값보다 작지 않은 최솟값을 찾기 위해 `(last - first) % increment == 0`와 같은 식을 갖고 프로그레션의 `last` 요소를 계산한다.
+양수 `increment` 기준으로 `end` 값보다 크지 않은 최댓값을 또는 음수 `increment`에 대해 `end` 값보다 작지 않은 최솟값을 찾기 위해 `(last - first) % increment == 0`와 같은 식을 사용해서 프로그레션의 `last` 요소를 계산한다.
 
 
 ## 유틸리티 함수
@@ -98,7 +98,7 @@ class Int {
   public operator fun <T: Comparable<T>> T.rangeTo(that: T): ClosedRange<T>
 ```
 
-이 함수가 리턴하는 범위는 이터레이션으로 사용할 수 없다.
+이 함수가 리턴하는 범위는 이터레이션할 수 없다.
 
 ### `downTo()`
 
@@ -117,7 +117,7 @@ fun Byte.downTo(other: Int): IntProgression {
 ### `reversed()`
 
 `reversed()`는 각 `*Progression` 클래스를 위한 확장 함수이다.
-모든 확장 함수는 지정 프로그레션을 리턴한다.
+모든 확장 함수는 역순 프로그레션을 리턴한다.
 
 ``` kotlin
 fun IntProgression.reversed(): IntProgression {
@@ -128,8 +128,8 @@ fun IntProgression.reversed(): IntProgression {
 ### `step()`
 
 `step()`은 `*Progression` 클래스를 위한 확장 함수이다.
-모든 확장 함수는 수정한 `step` 값을 가진 프로그레션을 리턴한다(함수 파라미터).
-step 값은 항상 양수여야 한다. 따라서, 이 함수는 이터레이션의 방향을 절대 바꾸지 않는다.
+모든 확장 함수는 수정한 `step` 값(함수 파라미터)을 가진 프로그레션을 리턴한다.
+step 값은 항상 양수여야 한다. 따라서 이 함수는 이터레이션의 방향을 절대 바꾸지 않는다.
 
 ``` kotlin
 fun IntProgression.step(step: Int): IntProgression {
