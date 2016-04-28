@@ -55,7 +55,7 @@ for (i in 4 downTo 1 step 2) print(i) // "42" 출력
 
 프로그레션은 `Iterable<N>`의 하위 타입으로 `N`에는 `Int`, `Long`, `Char`가 올 수 있으며,
 *for*{: .keyword }-루프나 `map`, `filter`와 같은 함수에서 사용할 수 있다.
-프로그레션에 대한 이터레이션은 자바/자바스크립에서 다음의 인덱스 기반 *for*{: .keyword }-루프와 동일하다:
+프로그레션에 대한 이터레이션은 자바/자바스크립에서 다음의 인덱스 기반 *for*{: .keyword }-루프와 동일하다.
 
 ``` java
 for (int i = first; i != last; i += increment) {
@@ -67,7 +67,7 @@ for (int i = first; i != last; i += increment) {
 예를 들어, `IntRange`는 `ClosedRange<Int>`를 구현하고 `IntProgression`를 확장해서, `IntProgression`에 정의된 모든 오퍼레이션을 `IntRange`에서 사용 가능하다.
 `downTo()`와 `setp()` 함수 결과는 항상 `*Progression`이다.
 
-프로그레션은 컴페니언 객체에 정의한 `fromClosedRange` 함수로 생성한다:
+프로그레션은 컴페니언 객체에 정의한 `fromClosedRange` 함수로 생성한다.
 
 ``` kotlin
   IntProgression.fromClosedRange(start, end, increment)
@@ -80,7 +80,7 @@ for (int i = first; i != last; i += increment) {
 
 ### `rangeTo()`
 
-정수 타입 `rangeTo()` 연산자는 단순히 `*Range` 클래스의 생성자를 호출한다:
+정수 타입 `rangeTo()` 연산자는 단순히 `*Range` 클래스의 생성자를 호출한다.
 
 ``` kotlin
 class Int {
@@ -92,7 +92,7 @@ class Int {
 }
 ```
 
-실수형 숫자(`Double`, `Float`)는 `rangeTo` 연산자를 정의하지 않고, 지네릭 `Comparable` 타입을 위해 표준 라이브러리가 제공하는 연산자를 대신 사용한다:
+실수형 숫자(`Double`, `Float`)는 `rangeTo` 연산자를 정의하지 않고 지네릭 `Comparable` 타입을 위해 표준 라이브러리가 제공하는 연산자를 대신 사용한다.
 
 ``` kotlin
   public operator fun <T: Comparable<T>> T.rangeTo(that: T): ClosedRange<T>
@@ -102,7 +102,7 @@ class Int {
 
 ### `downTo()`
 
- `downTo()`는 정수 타입 쌍을 위한 확장 함수이다. 다음은 두 가지 예이다:
+ `downTo()`는 정수 타입 쌍을 위한 확장 함수이다. 다음은 두 가지 예이다.
 
 ``` kotlin
 fun Long.downTo(other: Int): LongProgression {
@@ -143,7 +143,7 @@ fun CharProgression.step(step: Int): CharProgression {
 }
 ```
 
-`(last - first) % increment == 0` 규칙을 유지하기 위해 리턴한 프로그레션의 `last` 값은 원래 프로그레션의 `last`와 다를 수 있다. 다음은 예이다:
+`(last - first) % increment == 0` 규칙을 유지하기 위해 리턴한 프로그레션의 `last` 값은 원래 프로그레션의 `last`와 다를 수 있다. 다음은 예이다.
 
 ``` kotlin
   (1..12 step 2).last == 11  // [1, 3, 5, 7, 9, 11] 값을 가진 프로그레션

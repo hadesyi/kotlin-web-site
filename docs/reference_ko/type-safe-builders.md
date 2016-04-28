@@ -13,9 +13,9 @@ title: "타입-안전 그루비-스타일 빌더"
 [컴포넌트 배치](http://www.groovy-lang.org/swing.html),
 [3D 장면 묘사](http://www.artima.com/weblogs/viewpost.jsp?thread=296081) 등이 있다.
 
-많은 유스케이스를 위해 코틀린은 *타입-검사(type-check)* 빌더를 제공한다. 이 빌더는 예로 든 것을 그루비 자체에서 만든 동적-타입 구현보다 더 매력적으로 만들어준다.
+많은 유스케이스를 위해 코틀린은 *타입-검사(type-check)* 빌더를 제공한다. 이 빌더는 그루비 자체에서 만든 동적-타입 구현보다 더 매력적으로 이런 예를 구현할 수 있게 해준다.
 
-나머지 경우를 위해 코틀린은 동적 타입 빌더를 지원한다.
+코틀린은 동적 타입 빌더도 지원한다.
 
 ## 타입-안전 빌더 예제
 
@@ -75,7 +75,7 @@ html {
 ```
 
 `html`은 실제로 [람다 식](lambdas.html)을 인자로 받는 함수 호출이다.
-이 함수는 다음과 같이 정의되어 있다:
+이 함수는 다음과 같이 정의되어 있다.
 
 ``` kotlin
 fun html(init: HTML.() -> Unit): HTML {
@@ -88,7 +88,7 @@ fun html(init: HTML.() -> Unit): HTML {
 이 함수는 이름이 `init`인 파라미터를 갖는다. 이 파라미터 자체도 함수이다.
 `init` 함수 타입은 _리시버를 갖는 함수 타입_인 `HTML.() -> Unit`이다.
 이는 함수에 `HTML` 타입의 인스턴스(리시버)를 전달해야 하고 함수 안에서 그 인스턴스의 멤버를 호출할 수 있음을 의미한다.
-*this*{: .keyword } 키워드로 리시버에 접근할 수 있다:
+*this*{: .keyword } 키워드로 리시버에 접근할 수 있다.
 
 ``` kotlin
 html {
@@ -99,7 +99,7 @@ html {
 
 (`head`와 `body`는 `html`의 멤버 함수이다.)
 
-여기서 보통 *this*{: .keyword }를 생략할 수 있다. 이 코드는 이미 빌더와 같은 모양이다:
+여기서 보통 *this*{: .keyword }를 생략할 수 있다. 이 코드는 이미 빌더와 같은 모양이다.
 
 ``` kotlin
 html {
@@ -115,7 +115,7 @@ html {
 이것이 정확하게 빌더가 해야 하는 것이다.
 
 `HTML` 클래스의 `head`와 `body` 함수는 `html`과 비슷하게 정의한다.
-유일한 차이점은 둘러싼 `HTML` 인스턴스의 `childrel` 콜렉션에 생성한 인스턴스를 추가하는 것이다.
+유일한 차이점은 둘러싼 `HTML` 인스턴스의 `children` 콜렉션에 생성한 인스턴스를 추가하는 것이다.
 
 ``` kotlin
 fun head(init: Head.() -> Unit) : Head {
@@ -133,7 +133,7 @@ fun body(init: Body.() -> Unit) : Body {
 }
 ```
 
-실제 이 두 함수는 같은 것을 하므로 지네릭 버전인 `initTag`를 만들 수 있다:
+실제 이 두 함수는 같은 것을 하므로 지네릭 버전인 `initTag`를 만들 수 있다.
 
 ``` kotlin
   protected fun <T : Element> initTag(tag: T, init: T.() -> Unit): T {
@@ -143,7 +143,7 @@ fun body(init: Body.() -> Unit) : Body {
   }
 ```
 
-이제 두 함수가 매우 간단해진다:
+이제 두 함수가 매우 간단해진다.
 
 ``` kotlin
 fun head(init: Head.() -> Unit) = initTag(Head(), init)
@@ -164,9 +164,9 @@ html {
 }
 ```
 
-기본적으로 단순히 태그 몸체에 문자열을 넣는데, 그 앞에 `+`가 있다.
+기본적으로 단순히 태그 몸체에 문자열을 넣는데 그 앞에 `+`가 있다.
 따라서 이는 접두 `unaryPlus()` 오프레이션을 실행하는 함수 호출이다.
-실제로 이 오퍼레이션을 `TagWithText` 추상 클래스(`Title`의 부모)의 멤버인 `unaryPlus()` 확장 함수로 정의했다:
+실제로 이 오퍼레이션을 `TagWithText` 추상 클래스(`Title`의 부모)의 멤버인 `unaryPlus()` 확장 함수로 정의했다.
 
 ``` kotlin
 fun String.unaryPlus() {
