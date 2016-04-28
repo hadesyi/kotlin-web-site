@@ -2,10 +2,10 @@
 type: doc
 layout: reference
 category: "Other"
-title: "Equality"
+title: "동등성"
 ---
 
-# Equality
+# 동등성
 
 코틀린에는 두 가지 동등성이 있다:
 
