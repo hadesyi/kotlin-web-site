@@ -1,0 +1,166 @@
+# Header navigation
+# ====================
+main:
+  docs:
+    url: /docs/reference_ko/
+    title: Learn
+
+  contribute:
+    url: /contribute.html
+    title: Contribute
+
+  try:
+    url: http://try.kotlinlang.org
+    title: Try Online
+
+  download:
+    url: /#get-kotlin
+    title: Download
+    show: false
+
+
+# Docs section navigation
+# =======================
+docs:
+  reference:
+    url: /docs/reference_ko/
+    title: Reference
+
+  tutorials:
+    url: /docs/tutorials/
+    title: Tutorials
+
+  videos:
+    url: /docs/videos.html
+    title: Videos
+
+  events:
+    url: /docs/events.html
+    title: Events
+
+  resources:
+    url: /docs/resources.html
+    title: More resources
+
+
+# Reference navigation
+# ====================
+reference:
+  - title: 시작하기
+    description: Get familiar with the basics of Kotlin including operations, coding conventions and idioms.
+    content:
+      - /docs/reference_ko/basic-syntax.html: 기본 구문
+      - /docs/reference_ko/idioms.html: 이디엄
+      - /docs/reference_ko/coding-conventions.html: 코딩 규칙
+
+  - title: Basics
+    description: The Basics
+    content:
+      - /docs/reference_ko/basic-types.html: 기본 타입
+      - /docs/reference_ko/packages.html: 패키지
+      - /docs/reference_ko/control-flow.html: 흐름 제어
+      - /docs/reference_ko/returns.html: 리턴과 점프
+
+  - title: 클래스와 오브젝트
+    description: All about objects
+    content:
+      - /docs/reference_ko/classes.html: 클래스와 상속
+      - /docs/reference_ko/properties.html: 프로퍼티와 필드
+      - /docs/reference_ko/interfaces.html: 인터페이스
+      - /docs/reference_ko/visibility-modifiers.html: 가시성
+      - /docs/reference_ko/extensions.html: 확장
+      - /docs/reference_ko/data-classes.html: 데이터 클래스
+      - /docs/reference_ko/generics.html: 지네릭
+      - /docs/reference_ko/nested-classes.html: 중첩 클래스
+      - /docs/reference_ko/enum-classes.html: Enum 클래스
+      - /docs/reference_ko/object-declarations.html: 오브젝트
+      - /docs/reference_ko/delegation.html: 위임
+      - /docs/reference_ko/delegated-properties.html: 위임 프로퍼티
+
+  - title: 함수와 람다
+    description: All about functions
+    content:
+      - /docs/reference_ko/functions.html: 함수
+      - /docs/reference_ko/lambdas.html: 람다
+      - /docs/reference_ko/inline-functions.html: 인라인 함수
+
+  - title: 기타
+    description: Various bits and bobs
+    content:
+      - /docs/reference_ko/multi-declarations.html: 분리 선언
+      - /docs/reference_ko/collections.html: 콜렉션
+      - /docs/reference_ko/ranges.html: 범위
+      - /docs/reference_ko/typecasts.html: 타입 검사와 변환
+      - /docs/reference_ko/this-expressions.html: This 식
+      - /docs/reference_ko/equality.html: 동등성
+      - /docs/reference_ko/operator-overloading.html: 연산자 오버로딩
+      - /docs/reference_ko/null-safety.html: Null 안정성
+      - /docs/reference_ko/exceptions.html: 익셉션
+      - /docs/reference_ko/annotations.html: 애노테이션
+      - /docs/reference_ko/reflection.html: 리플렉션
+      - /docs/reference_ko/type-safe-builders.html: 타입-안전 빌더
+      - /docs/reference_ko/dynamic-type.html: 동적 타입
+
+
+
+  - title: Reference
+    description: API and Grammar
+    content:
+      - /api/latest/jvm/stdlib/: API 레퍼런스
+      - /docs/reference_ko/grammar.html: 문법
+
+
+  - title: 상호 운용
+    description: What you need to know about interoperability with Java and JavaScript.
+    content:
+      - /docs/reference_ko/java-interop.html: 코틀린에서 자바 호출하기
+      - /docs/reference_ko/java-to-kotlin-interop.html: 자바에서 코틀린 호출하기
+
+  - title: 도구
+    description:
+    content:
+#      - /docs/reference_ko/kotlin-build-tools.html: Kotlin Build Tools
+      - /docs/reference_ko/kotlin-doc.html: 코틀린 코드 문서화
+      - /docs/reference_ko/using-maven.html: 메이븐 사용하기
+      - /docs/reference_ko/using-ant.html: 앤트 사용하기
+      - /docs/reference_ko/using-gradle.html: 그래들 사용하기
+      - /docs/reference_ko/kotlin-osgi.html: 코틀린과 OSGi
+
+  - title: FAQ
+    description: Every question you could possibly think of, might be answered.
+    content:
+      - /docs/reference_ko/faq.html: FAQ
+      - /docs/reference_ko/comparison-to-java.html: 자바와 비교
+      - /docs/reference_ko/comparison-to-scala.html: 스칼라와 비교
+
+
+
+# Tutorials navigation
+# ====================
+tutorials:
+  - title: Getting Started
+    content:
+      - /docs/tutorials/getting-started.html: Getting Started with IntelliJ IDEA
+      - /docs/tutorials/getting-started-eclipse.html: Getting Started with Eclipse
+      - /docs/tutorials/command-line.html: Working with the Command Line Compiler
+      - /docs/tutorials/build-tools.html: Working with Build Tools
+      - /docs/tutorials/koans.html: Koans
+  - title: JavaScript
+    content:
+      - /docs/tutorials/create-library-js.html: Creating Kotlin/JavaScript library with IntelliJ IDEA
+      - /docs/tutorials/command-line-library-js.html: Creating Kotlin/JavaScript library with the Command Line Compiler
+  - title: Interop
+    content:
+      - /docs/tutorials/mixing-java-kotlin-intellij.html: Mixing Java and Kotlin in one project
+  - title: Web Development
+    content:
+      - /docs/tutorials/httpservlets.html: Creating Web Applications with Http Servlets
+      - /docs/tutorials/spring-boot-restful.html: Creating a RESTful Web Service with Spring Boot
+
+  - title: Mobile
+    content:
+      - /docs/tutorials/kotlin-android.html: Getting Started With Android Development
+      - /docs/tutorials/android-plugin.html: Kotlin Android Extensions
+  - title: Tools
+    content:
+      - /docs/tutorials/kotlin-and-ci.html: Setting up Kotlin on TeamCity

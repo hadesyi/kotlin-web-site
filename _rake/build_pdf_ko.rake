@@ -17,7 +17,8 @@ PDF_CONFIG = {
     'footer-font-size' => '9',
     'footer-spacing' => '7',
     'enable-smart-shrinking' => '',
-    'zoom' => '0.9'
+    'zoom' => '0.9',
+    'load-error-handling' => 'ignore'
 }
 
 PDF_TOC_CONFIG = {
@@ -26,10 +27,10 @@ PDF_TOC_CONFIG = {
 }
 
 desc 'Builds Korean PDF'
-task :build_pdf do
+task :build_pdf_ko do
   source_dir = CONFIG[:source_dir]
   tmp_dir = CONFIG[:tmp_dir]
-  pdf_filename = ENV['dest'] || CONFIG[:pdf_filename]
+  pdf_filename = ENV['dest'] || CONFIG[:pdf_filename_ko]
   pdf_filename = File.expand_path(pdf_filename)
   pdf_options_str = PDF_CONFIG.map{|key, value| "--#{key} #{value}"}.join(' ')
   pdf_toc_options_str = PDF_TOC_CONFIG.map{|key, value| "--#{key} #{value}"}.join(' ')
@@ -46,8 +47,8 @@ task :build_pdf do
   })
 
   File.write("#{tmp_dir}/tmp.html", doc_content)
-
-  unless system "wkhtmltopdf #{pdf_options_str} cover #{source_dir}/_rake/build_pdf/book-cover.html toc #{pdf_toc_options_str} #{tmp_dir}/tmp.html #{pdf_filename}"
+  puts "wkhtmltopdf #{pdf_options_str} cover #{source_dir}/_rake/build_pdf/book-cover_ko.html toc #{pdf_toc_options_str} #{tmp_dir}/tmp.html #{pdf_filename}"
+  unless system "wkhtmltopdf #{pdf_options_str} cover #{source_dir}/_rake/build_pdf/book-cover_ko.html toc #{pdf_toc_options_str} #{tmp_dir}/tmp.html #{pdf_filename}"
     $stderr.puts "Can't build, see build log for details"
     exit 1
   end
@@ -68,7 +69,7 @@ def build_html dir
   FileUtils.cp "#{dir}/_layouts/pdf.html", "#{dir}/_layouts/api.html" # substitute the original page layout
   FileUtils.cd dir
 
-  unless system "jekyll build --source=#{dir} --destination=#{dir}/_site > /dev/null"
+  unless system "jekyll build --source=#{dir} --destination=#{dir}/_site "
     $stderr.puts 'Error running jekyll, see build log for details'
     exit 1
   end
@@ -79,7 +80,7 @@ def get_doc_contents
   source_dir = CONFIG[:source_dir]
   tmp_dir = CONFIG[:tmp_dir]
   formatter = REXML::Formatters::Default.new
-  toc = YAML::load_file("#{source_dir}/_data/_nav.yml")
+  toc = YAML::load_file("#{source_dir}/_data/_nav_ko.yml")
   doc_content = []
 
   toc["reference"].each do |toc_data|
