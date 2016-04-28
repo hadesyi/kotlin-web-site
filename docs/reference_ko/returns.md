@@ -17,7 +17,7 @@ title: "리턴과 점프"
 
 코틀린의 모든 식은 *라벨*{: .keyword }로 표식을 가질 수 있다.
 라벨은 `@` 기호 뒤에 구분자를 갖는다. 예를 들어 `abc@`, `fooBar@`는 유효한 라벨이다([문법](grammar.html#label) 참고).
-식에 라벨을 붙이려면, 식 앞에 라벨을 위치시키면 된다.
+식에 라벨을 붙이려면 식 앞에 라벨을 위치시키면 된다.
 
 ``` kotlin
 loop@ for (i in 1..100) {
@@ -25,7 +25,7 @@ loop@ for (i in 1..100) {
 }
 ```
 
-이제, *break*{: .keyword }나 *continue*{: .keyword }를 라벨로 한정할 수 있다.
+이제 *break*{: .keyword }나 *continue*{: .keyword }를 라벨로 한정할 수 있다.
 
 ``` kotlin
 loop@ for (i in 1..100) {
@@ -56,7 +56,7 @@ fun foo() {
 ```
 
 *return*{: .keyword } 식은 가장 가깝게 둘러싼 함수인 `foo`에서 리턴한다.
-(비-로컬(non-local) 리턴은 [인라인 함수](inline-functions.html))로 전달한 람다 식만 지원한다.)
+(비-로컬(non-local) 리턴은 [인라인 함수](inline-functions.html)로 전달한 람다 식만 지원한다.)
 만약 람다 식에서 리턴하고 싶다면 라벨을 붙여서 *return*{: .keyword }을 한정해야 한다:
 
 ``` kotlin
@@ -68,7 +68,7 @@ fun foo() {
 }
 ```
 
-이제, 이 return은 람다식에서 리턴한다. 종종, 임의 라벨을 사용하는게 더 편리하다:
+이제 이 return은 람다식에서 리턴한다. 종종 임의 라벨을 사용하는게 더 편리하다:
 임의 라벨은 람다를 전달받은 함수와 같은 이름을 갖는다.
 
 ``` kotlin
@@ -80,7 +80,7 @@ fun foo() {
 }
 ```
 
-다른 방법으로, 람다 식 대신 [임의 함수](lambdas.html#anonymous-functions)를 사용할 수 있다.
+다른 방법으로 람다 식 대신 [임의 함수](lambdas.html#anonymous-functions)를 사용할 수 있다.
 임의 함수에서 *return*{: .keyword } 문은 임의 함수 자체에서 리턴한다.
 
 ``` kotlin
@@ -92,7 +92,7 @@ fun foo() {
 }
 ```
 
-값을 리턴할 때, 파서는 한정한 리턴에 우선순위를 준다.
+값을 리턴할 때 파서는 한정한 리턴에 우선순위를 준다.
 
 ``` kotlin
 return@a 1
