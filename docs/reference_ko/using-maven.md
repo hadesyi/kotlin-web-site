@@ -11,7 +11,7 @@ description: "이 튜토리얼은 코틀린 코드를 포함한 애플리케이�
 
 *kotlin-maven-plugin*은 코틀린 소스와 모듈을 컴파일한다. 현재는 메이븐 v3만 지원한다.
 
-*kotlin.version*으로 사용할 코틀린 버전을 정의한다. 코틀린 릴리즈와 버전 간의 관계를 아래 표시했다:
+*kotlin.version*으로 사용할 코틀린 버전을 정의한다. 코틀린 릴리즈와 버전 간의 관계를 아래 표시했다.
 
 <table>
 <thead>
@@ -48,14 +48,14 @@ pom 파일에 다음 의존을 설정한다.
 
 ## 코틀린 소스 코드만 컴파일하기
 
-소스 코드를 컴파일하려면 <build> 태그에 소스 디렉토리를 지정한다:
+소스 코드를 컴파일하려면 <build> 태그에 소스 디렉토리를 지정한다.
 
 ``` xml
 <sourceDirectory>${project.basedir}/src/main/kotlin</sourceDirectory>
 <testSourceDirectory>${project.basedir}/src/test/kotlin</testSourceDirectory>
 ```
 
-코틀린 메이븐 플러그인에 소스 컴파일을 참조해야 한다:
+코틀린 메이븐 플러그인에 소스 컴파일을 참조해야 한다.
 
 ``` xml
 

@@ -35,7 +35,7 @@ new demo.Foo();
 demo.ExampleKt.bar();
 ```
 
-`@JvmName` 애노테이션을 사용하면 생성할 자바 클래스의 이름을 바꿀 수 있다:
+`@JvmName` 애노테이션을 사용하면 생성할 자바 클래스의 이름을 바꿀 수 있다.
 
 ``` kotlin
 @file:JvmName("DemoUtils")
@@ -56,7 +56,7 @@ demo.DemoUtils.bar();
 ```
 
 (같은 패키지나 같은 이름 또는 같은 @JvmName 애노테이션을 사용해서) 생성할 자바 클래스 이름이 같은 파일이 여러 개인 경우 보통 에러가 발생한다.
-하지만, 컴파일러는 같은 이름을(파일 이름이나 `@JvmName` 값) 갖는 모든 파일에 선언한 모든 것을 포함하는 단일 자바 파사드 클래스를 만드는 기능을 제공한다.
+하지만 컴파일러는 같은 이름을(파일 이름이나 `@JvmName` 값) 갖는 모든 파일에 선언한 모든 것을 포함하는 단일 자바 파사드 클래스를 만드는 기능을 제공한다.
 파사드 생성을 활성화하려면 모든 파일에 @JvmMultifileClass 애노테이션을 사용하면 된다.
 
 ``` kotlin
@@ -109,7 +109,7 @@ class JavaClient {
 }
 ```
 
-[Late-Initialized](properties.html#late-initialized-properties) 프로퍼티도 필드로 노출된다.
+[초기화 지연](properties.html#late-initialized-properties) 프로퍼티도 필드로 노출된다.
 필드는 `lateinit` 프로퍼티의 setter와 같은 가시성을 갖는다.
 
 ## 정적 필드
@@ -117,11 +117,11 @@ class JavaClient {
 네임드 오브젝트나 컴페니언 오브젝트에 선언한 코틀린 프로퍼티는 네임드 오브젝트나 컴페니언 오브젝트를 포함하는 클래스에서
 정적 backing 필드를 갖는다.
 
-보통 이 필드는 private이지만 다음 중 한 가지 방법으로 노출할 수 있다:
+보통 이 필드는 private이지만 다음 중 한 가지 방법으로 노출할 수 있다.
 
- - `@JvmField` 애노테이션;
- - `lateinit` 제한자;
- - `const` 제한자.
+ - `@JvmField` 애노테이션
+ - `lateinit` 제한자
+ - `const` 제한자
 
 `@JvmField`을 붙인 프로퍼티는 프로퍼티 자체와 같은 가시성을 갖는 정적 필드가 된다.
 
@@ -140,7 +140,7 @@ Key.COMPARATOR.compare(key1, key2);
 // Key 클래스에 public static final 필드
 ```
 
-오브젝트나 컴페니언 오브젝트의 [late-initialized](properties.html#late-initialized-properties) 프로퍼티는
+오브젝트나 컴페니언 오브젝트의 [초기화 지연](properties.html#late-initialized-properties) 프로퍼티는
 프로퍼티 setter와 같은 가시성을 갖는 정적 backing 필드를 갖는다.
 
 ``` kotlin
@@ -155,7 +155,7 @@ Singleton.provider = new Provider();
 // public static non-final field in Singleton class
 ```
 
-(최상위 수준 또는 클래스에 있는) `const` 프로퍼티는 자바에서 정적 필드가 된다:
+(최상위 수준 또는 클래스에 있는) `const` 프로퍼티는 자바에서 정적 필드가 된다.
 
 ``` kotlin
 // file example.kt
@@ -185,7 +185,7 @@ int v = C.VERSION;
 
 앞서 언급했듯이 패키지 수준 함수에 대해 코틀린은 정적 메서드를 생성한다.
 또한 코틀린은 네임드 오브젝트나 컴페니언 오브젝트에 정의한 함수에 `@JvmStatic`을 붙이면 정적 메서드를 생성한다.
-다음 예를 보자:
+다음 예를 보자.
 
 ``` kotlin
 class C {
@@ -196,14 +196,14 @@ class C {
 }
 ```
 
-여기서 `foo()`는 자바에서 정적이지만 `bar()`는 아니다:
+여기서 `foo()`는 자바에서 정적이지만 `bar()`는 아니다.
 
 ``` java
 C.foo(); // 잘 동작
 C.bar(); // 에러: 정적 메서드 아님
 ```
 
-네임드 오브젝트도 같다:
+네임드 오브젝트도 같다.
 
 ``` kotlin
 object Obj {
@@ -228,7 +228,7 @@ Obj.INSTANCE.foo(); // 역시 동작
 ## @JvmName으로 시그너처 충돌 처리하기
 
 때때로 코틀린에서 네임드 함수가 JVM 바이트 코드 상의 이름과 달라야 할 때가 있다.
-가장 두드러진 예는 *타입 제거(type erasure)* 때문에 발생한다:
+가장 두드러진 예는 *타입 제거(type erasure)* 때문에 발생한다.
 
 ``` kotlin
 fun List<String>.filterValid(): List<String>
@@ -236,7 +236,7 @@ fun List<Int>.filterValid(): List<Int>
 ```
 
 이 두 함수는 함께 정의할 수 없다. 왜냐면 JVM 시그너처가 `filterValid(Ljava/util/List;)Ljava/util/List;`로 같기 때문이다.
-코틀린에서 같은 이름을 갖는 함수를 정의하고 싶다면 두 함수 중 하나에 (또는 두 함수 모두에) `@JvmName`의 인자로 다른 이름을 지정해야 한다:
+코틀린에서 같은 이름을 갖는 함수를 정의하고 싶다면 두 함수 중 하나에 (또는 두 함수 모두에) `@JvmName`의 인자로 다른 이름을 지정해야 한다.
 
 ``` kotlin
 fun List<String>.filterValid(): List<String>
@@ -247,7 +247,7 @@ fun List<Int>.filterValid(): List<Int>
 
 코틀린에서는 같은 이름인 `filterValid`로 접근할 수 있지만 자바에서는 이름이 `filterValid`와 `filterValidInt`가 된다.
 
-함수 `getX()`를 갖는 이름이 `x`인 프로퍼티에 대해서도 같은 트릭을 사용할 수 있다:
+함수 `getX()`를 갖는 이름이 `x`인 프로퍼티에 대해서도 같은 트릭을 사용할 수 있다.
 
 ``` kotlin
 val x: Int
@@ -270,7 +270,7 @@ fun getX() = 10
 ```
 
 기본 값을 가진 모든 파라미터에 대해 오버로드 메서드를 생성한다. 기본 값을 가진 파라미터와 그 오른쪽에 위치한 파라미터를 파라미터 목록에서 제거한다.
-이 예는 다음 메서드를 생성한다:
+이 예는 다음 메서드를 생성한다.
 
 ``` java
 // 자바
@@ -301,7 +301,7 @@ fun foo() {
 }
 ```
 
-그리고 자바에서 위 함수를 호출할 때 익셉션을 catch하고 싶다고 하자:
+그리고 자바에서 위 함수를 호출할 때 익셉션을 catch하고 싶다고 하자.
 
 ``` java
 // 자바
@@ -332,7 +332,7 @@ fun foo() {
 ## 기변(Variant) 지네릭
 
 코틀린이 [선언-위치 가변](generics.html#declaration-site-variance)을 사용하면,
-자바 코드에서 이를 사용하는 두 가지 선택이 있다. 다음 클래스와 이 클래스를 사용하는 두 함수를 보자:
+자바 코드에서 이를 사용하는 두 가지 선택이 있다. 다음 클래스와 이 클래스를 사용하는 두 함수를 보자.
 
 ``` kotlin
 class Box<out T>(val value: T)
@@ -344,7 +344,7 @@ fun boxDerived(value: Derived): Box<Derived> = Box(value)
 fun unboxBase(box: Box<Base>): Base = box.value
 ```
 
-이 함수를 자바로 변환하는 가장 단순한 방법은 다음과 같다:
+이 함수를 자바로 변환하는 가장 단순한 방법은 다음과 같다.
 
 ``` java
 Box<Derived> boxDerived(Derived value) { ... }
@@ -353,7 +353,7 @@ Base unboxBase(Box<Base> box) { ... }
 
 문제는 코틀린에서는 `unboxBase(boxDerived("s"))`가 가능하지만 자바에서는 가능하지 않다는 것이다.
 왜냐면 자바에서 `Box` 클래스는 `T` 파라미터에 대해 *무공변(invariant)*이라서 `Box<Derived>`가 `Box<Base>`의 하위타입이 아니기 때문이다.
-자바에서 이게 동작하도록 하려면 `unboxBase`를 다음과 같이 정의해야 한다:
+자바에서 이게 동작하도록 하려면 `unboxBase`를 다음과 같이 정의해야 한다.
 
 ``` java
 Base unboxBase(Box<? extends Base> box) { ... }  
@@ -364,7 +364,7 @@ Base unboxBase(Box<? extends Base> box) { ... }
 
 코틀린 API를 자바에서 쓸 수 있게 하기 위해 파라미터로 쓰이는 `Box<Super>`를 (공변으로 정의한 Box인) `Box<? extends Super>`로 생성한다(또는 반공변으로 정의한 Foo인 `Foo<? super Bar>`로 생성).
 그것이 리턴 값이면 와일드카드를 생성하지 않는다. 그렇지 않을 경우 자바 클라이언트가 그것을 처리해야 하기 때문이다(그리고 이는 보통의 자바 코딩 방식과 반대된다).
-따라서 위 예의 함수는 실제로 다음과 같이 번역된다:
+따라서 위 예의 함수는 실제로 다음과 같이 번역된다.
 
 ``` java
 // 리턴 타입 - 와일드카드 없음
@@ -376,7 +376,7 @@ Base unboxBase(Box<? extends Base> box) { ... }
 
 노트: 인지 타입이 final이면, 보통 와일드카드를 생성해도 얻는게 없기 때문에 `Box<String>`은 인자 위치에 상관없이 항상 `Box<String>`이다.
 
-기본적으로 와일드카드를 생성할 수 없는 곳에서 와일드카드가 필요하면 `@JvmWildcard` 애노테이션을 사용할 수 있다:
+기본적으로 와일드카드를 생성할 수 없는 곳에서 와일드카드가 필요하면 `@JvmWildcard` 애노테이션을 사용할 수 있다.
 
 ``` kotlin
 fun boxDerived(value: Derived): Box<@JvmWildcard Derived> = Box(value)
@@ -384,7 +384,7 @@ fun boxDerived(value: Derived): Box<@JvmWildcard Derived> = Box(value)
 // Box<? extends Derived> boxDerived(Derived value) { ... }
 ```
 
-반면에 와일드카드 생성이 필요 없으면 `@JvmSuppressWildcards`를 사용한다:
+반면에 와일드카드 생성이 필요 없으면 `@JvmSuppressWildcards`를 사용한다.
 
 ``` kotlin
 fun unboxBase(box: Box<@JvmSuppressWildcards Base>): Base = box.value
@@ -398,7 +398,7 @@ fun unboxBase(box: Box<@JvmSuppressWildcards Base>): Base = box.value
 
 `Nothing` 타입은 특별하다. 왜냐면 자바에 이와 딱들어맞는 요소가 없기 때문이다. 사실 `java.lang.Void`를 포함한 모든 자바 레퍼런스 타입은
 값으로 `null`을 가질 수 있는데 `Nothing`은 그것조차 안 된다. 따라서 자바에서 이 타입을 완벽하게 표현할 수는 없다.
-이것이 코틀린이 `Nothing` 타입을 사용하는 인자에 raw 타입을 생성하는 이유이다:
+이것이 코틀린이 `Nothing` 타입을 사용하는 인자에 raw 타입을 생성하는 이유이다.
 
 ``` kotlin
 fun emptyList(): List<Nothing> = listOf()

@@ -12,7 +12,7 @@ title: "그래들 사용하기"
 
 *kotlin-gradle-plugin*은 코틀린 소스와 모듈을 컴파일한다.
 
-보통 사용할 코틀린 버전은 *kotlin_version* 프로퍼티로 정의한다.:
+보통 사용할 코틀린 버전은 *kotlin_version* 프로퍼티로 정의한다.
 
 ``` groovy
 buildscript {
@@ -28,7 +28,7 @@ buildscript {
 }
 ```
 
-코틀린 릴리즈와 버전 간의 관계를 아래 표시했다:
+코틀린 릴리즈와 버전 간의 관계를 아래 표시했다.
 
 <table>
 <thead>
@@ -55,7 +55,7 @@ JVM을 대상으로 하려면 kotlin 플러그인을 적용하면 된다.
 apply plugin: "kotlin"
 ```
 
-코틀린 소스와 자바 소스를 같은 폴더나 다른 폴더에 위치시킬 수 있다. 기본 규칙은 다른 폴더를 사용하는 것이다:
+코틀린 소스와 자바 소스를 같은 폴더나 다른 폴더에 위치시킬 수 있다. 기본 규칙은 다른 폴더를 사용하는 것이다.
 
 ``` groovy
 project
@@ -76,7 +76,7 @@ sourceSets {
 
 ## 자바스크립트 대상
 
-자바 스크립트가 대상이면 다른 플러그인을 사용한다:
+자바 스크립트가 대상이면 다른 플러그인을 사용한다.
 
 ``` groovy
 apply plugin: "kotlin2js"
@@ -102,7 +102,7 @@ compileKotlin2Js {
 
 ## 안드로이드 대상
 
-안드로이드의 그래들 모델은 일반적인 그래들과 약간 다르다. 따라서 코틀린으로 작성한 안드로이드 프롤젝트를 빌드하려면 *kotlin* 대신 *kotlin-android* 플러그인을 사용해야 한다:
+안드로이드의 그래들 모델은 일반적인 그래들과 약간 다르다. 따라서 코틀린으로 작성한 안드로이드 프롤젝트를 빌드하려면 *kotlin* 대신 *kotlin-android* 플러그인을 사용해야 한다.
 
 ``` groovy
 buildscript {
@@ -114,7 +114,7 @@ apply plugin: 'kotlin-android'
 
 ### 안드로이드 스튜디오
 
-안드로이드 스튜디오를 사용하면 android에 다음 코드를 추가해야 한다:
+안드로이드 스튜디오를 사용하면 android에 다음 코드를 추가해야 한다.
 
 ``` groovy
 android {
@@ -156,7 +156,7 @@ dependencies {
 }
 ```
 
-프로젝트에서 코틀린 리플렉션이나 테스트 기능을 사용하려면 해당 의존을 추가로 넣는다:
+프로젝트에서 코틀린 리플렉션이나 테스트 기능을 사용하려면 해당 의존을 추가로 넣는다.
 
 ``` groovy
 compile "org.jetbrains.kotlin:kotlin-reflect:$kotlin_version"

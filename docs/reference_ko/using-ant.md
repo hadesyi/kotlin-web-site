@@ -9,7 +9,7 @@ description: "이 튜토리얼은 코틀린 코드를 포함한 애플리케이�
 
 ## 앤트 태스크 얻기
 
-코틀린은 세 개의 앤트 태스크를 제공한다:
+코틀린은 세 개의 앤트 태스크를 제공한다.
 
 * kotlinc: JVM 대상 한 코틀린 컴파일러
 * kotlin2js: 자바스크립트 대상 코틀린 컴파일러
@@ -75,7 +75,7 @@ ${kotlin.lib}는 코틀린 표준 컴파일러의 압축을 푼 폴더를 가리
 
 `<withKotlin>`에 추가 명령행 인자를 지정하려면 `<compilerArg>` 파라미터를 사용하면 된다.
 `kotlinc -help`로 사용할 수 있는 전체 인자 목록을 볼 수 있다.
-`moduleName` 애트리뷰로 컴파일 할 모듈 이름을 지정할 수 있다:
+`moduleName` 애트리뷰로 컴파일 할 모듈 이름을 지정할 수 있다.
 
 ``` xml
 <withKotlin moduleName="myModule">
