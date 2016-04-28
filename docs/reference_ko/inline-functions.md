@@ -32,7 +32,7 @@ finally {
 
 이게 우리가 애초에 원한 것이다. 그렇지 않나?
 
-컴파일러가 이렇게 할 수 있으려면 `lock()` 함수에 `inline` 제한자를 붙이면 된다:
+컴파일러가 이렇게 할 수 있으려면 `lock()` 함수에 `inline` 제한자를 붙이면 된다.
 
 
 ``` kotlin
@@ -47,7 +47,7 @@ inline fun lock<T>(lock: Lock, body: () -> T): T {
 
 ## noinline
 
-인라인 함수에 전달된 람다 중 일부만 인라인 되길 원하면 `noinline` 제한자로 함수 파라미터를 지정하면 된다:
+인라인 함수에 전달된 람다 중 일부만 인라인 되길 원하면 `noinline` 제한자로 함수 파라미터를 지정하면 된다.
 
 ``` kotlin
 inline fun foo(inlined: () -> Unit, noinline notInlined: () -> Unit) {
@@ -115,7 +115,7 @@ inline fun f(crossinline body: () -> Unit) {
 
 ## Reified 타입 파라미터
 
-때때로 파라미터로 전달한 타입에 접근해야 할 때가 있다:
+때때로 파라미터로 전달한 타입에 접근해야 할 때가 있다.
 
 ``` kotlin
 fun <T> TreeNode.findParentOfType(clazz: Class<T>): T? {
@@ -129,7 +129,7 @@ fun <T> TreeNode.findParentOfType(clazz: Class<T>): T? {
 ```
 
 이 코드는 노드가 특정 타입을 가졌는지 확인하기 위해 트리를 탐색하고 리플렉션을 사용한다.
-모두 좋은데, 호출하는 코드가 이쁘지(pretty ^^) 않다:
+모두 좋은데 호출하는 코드가 이쁘지(pretty ^^) 않다.
 
 ``` kotlin
 myTree.findParentOfType(MyTreeNodeType::class.java)
@@ -141,7 +141,7 @@ myTree.findParentOfType(MyTreeNodeType::class.java)
 myTree.findParentOfType<MyTreeNodeType>()
 ```
 
-이렇게 할 수 있도록 인라인 함수는 *reified 타입 파라미터*를 지원한다. 이를 사용한 코드는 다음과 같다:
+이렇게 할 수 있도록 인라인 함수는 *reified 타입 파라미터*를 지원한다. 이를 사용한 코드는 다음과 같다.
 
 ``` kotlin
 inline fun <reified T> TreeNode.findParentOfType(): T? {
@@ -153,11 +153,11 @@ inline fun <reified T> TreeNode.findParentOfType(): T? {
 }
 ```
 
-타입 파라미터에 `reified` 제한자를 적용하면, 마치 클래스처럼 타입 파라미터에 접근할 수 있다.
+타입 파라미터에 `reified` 제한자를 적용하면 마치 클래스처럼 타입 파라미터에 접근할 수 있다.
 인라인 함수이므로 리플렉션이 필요 없고 `!is`나`as`와 같은 일반 연산자가 동작한다.
 또한 앞서 언급한 `myTree.findParentOfType<MyTreeNodeType>()`처럼 호출할 수 있댜:
 
-reified 타입 파라미터에 리플렉션을 사용할 수 있다. 많은 경우 리플렉션이 필요 없긴 하지만 말이다:
+reified 타입 파라미터에 리플렉션을 사용할 수 있다. 많은 경우 리플렉션이 필요 없긴 하지만 말이다.
 
 ``` kotlin
 inline fun <reified T> membersOf() = T::class.members
