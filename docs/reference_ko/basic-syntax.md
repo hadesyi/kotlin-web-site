@@ -9,7 +9,7 @@ title: "기본 구문"
 
 ## 패키지 정의
 
-소스 파일 최상단에 패키지를 지정한다:
+소스 파일 최상단에 패키지를 지정한다.
 
 ``` kotlin
 package my.demo
@@ -178,7 +178,7 @@ fun main(args: Array<String>) {
 ## 타입 검사와 자동 변환 사용하기
 
 *is*{: .keyword } 연산자는 대상이 지정한 타입의 인스턴스인지 검사한다.
-불변(immutable) 로컬 변수나 프로퍼티에 대해 특정 타입인지 검사하면 명시적으로 타입을 변환할 필요가 없다:
+불변(immutable) 로컬 변수나 프로퍼티에 대해 특정 타입인지 검사하면 명시적으로 타입을 변환할 필요가 없다.
 
 ``` kotlin
 fun getStringLength(obj: Any): Int? {

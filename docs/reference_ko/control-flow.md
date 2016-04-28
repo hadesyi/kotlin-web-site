@@ -29,7 +29,7 @@ else
 val max = if (a > b) a else b
 ```
 
-*if*{: .keyword } 브랜치는 블록이 될 수 있고 마지막 식이 블록의 값이 된다:
+*if*{: .keyword } 브랜치는 블록이 될 수 있고 마지막 식이 블록의 값이 된다.
 
 ``` kotlin
 val max = if (a > b) {
@@ -67,7 +67,7 @@ when (x) {
 *when*{: .keyword }을 식으로 사용할 경우, 각 브랜치 조건이 모든 경우의 수를 다뤘다고 컴파일러에서 판명할 수 없으면,
 *else*{: .keyword }를 필수로 사용해야 한다.
 
-여러 경우를 동일하게 처리해야 할 경우 브랜치 조건을 콤마로 묶을 수 있다:
+여러 경우를 동일하게 처리해야 할 경우 브랜치 조건을 콤마로 묶을 수 있다.
 
 ``` kotlin
 when (x) {
@@ -85,7 +85,7 @@ when (x) {
 }
 ```
 
-[범위](ranges.html)나 콜렉션에 대해 *in*{: .keyword }이나 *!in*{: .keyword }을 사용해서 값을 검사할 수 있다:
+[범위](ranges.html)나 콜렉션에 대해 *in*{: .keyword }이나 *!in*{: .keyword }을 사용해서 값을 검사할 수 있다.
 
 ``` kotlin
 when (x) {
@@ -107,7 +107,7 @@ val hasPrefix = when(x) {
 ```
 
 *if*{: .keyword }-*else*{: .keyword } *if*{: .keyword } 체인 대신 *when*{: .keyword }을 사용할 수 있다.
-인자를 제공하지 않으면 브랜치 조건은 단순 부울 식이며 각 조건이 true일 때 브랜치를 실행한다:
+인자를 제공하지 않으면 브랜치 조건은 단순 부울 식이며 각 조건이 true일 때 브랜치를 실행한다.
 
 ``` kotlin
 when {
@@ -122,7 +122,7 @@ when {
 
 ## For 루트
 
-*for*{: .keyword } 루트는 이터레이터를 제공하는 모든 것에 대해 반복을 수행한다. 구문은 다음과 같다:
+*for*{: .keyword } 루트는 이터레이터를 제공하는 모든 것에 대해 반복을 수행한다. 구문은 다음과 같다.
 
 ``` kotlin
 for (item in collection)
@@ -147,7 +147,7 @@ for (item: Int in ints) {
 
 배열에 대한 `for` 루프는 이터레이터 객체를 생성하지 않는 인덱스 기반 루프로 컴파일된다.
 
-인덱스를 이용해서 배열이나 리스트를 반복하고 싶다면 다음 방법을 사용하면 된다:
+인덱스를 이용해서 배열이나 리스트를 반복하고 싶다면 다음 방법을 사용하면 된다.
 
 ``` kotlin
 for (i in array.indices)
@@ -156,7 +156,7 @@ for (i in array.indices)
 
 이 "범위를 통한 반복"은 추가 객체를 생성하지 않는 코드로 최적화해서 컴파일된다.
 
-대신 `withIndex` 라이브러리 함수로 처리할 수도 있다:
+대신 `withIndex` 라이브러리 함수로 처리할 수도 있다.
 
 ``` kotlin
 for ((index, value) in array.withIndex()) {

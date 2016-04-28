@@ -35,20 +35,20 @@ class Goo {}
 import foo.Bar // Bar에 전체 이름을 사용하지 않고 접근할 수 있다.
 ```
 
-해당 범위의 모든 요소(패키지, 클래스, 오브젝트 등)에 접근할 수도 있다:
+해당 범위의 모든 요소(패키지, 클래스, 오브젝트 등)에 접근할 수도 있다.
 
 ``` kotlin
 import foo.* // 'foo'의 모든 요소에 접근 가능
 ```
 
-이름이 충돌하면 *as*{: .keyword } 키워드로 로컬에서 사용할 이름을 변경해서 충돌을 피할 수 있다:
+이름이 충돌하면 *as*{: .keyword } 키워드로 로컬에서 사용할 이름을 변경해서 충돌을 피할 수 있다.
 
 ``` kotlin
 import foo.Bar // Bar로 접근
 import bar.Bar as bBar // bBar는 'bar.Bar'를 의미
 ```
 
-`import` 키워드는 클래스뿐만 아니라 다른 것도 임포트할 수 있다:
+`import` 키워드는 클래스뿐만 아니라 다른 것도 임포트할 수 있다.
 
   * 최상위 레벨 함수와 프로퍼티;
   * [오브젝트 선언](object-declarations.html#object-declarations)의 함수와 프로퍼티;

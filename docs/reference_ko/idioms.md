@@ -15,7 +15,7 @@ title: "이디엄(Idioms)"
 data class Customer(val name: String, val email: String)
 ```
 
-이 코드는 다음 기능을 가진 `Customer` 클래스를 제공한다:
+이 코드는 다음 기능을 가진 `Customer` 클래스를 제공한다.
 
 * 모든 프로퍼티에 대한 getter (*var*{: .keyword } 프로퍼티는 setter 포함)
 * `equals()`
