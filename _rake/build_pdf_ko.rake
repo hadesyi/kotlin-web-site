@@ -5,7 +5,7 @@ require 'cgi'
 require 'erb'
 
 # http://madalgo.au.dk/~jakobt/wkhtmltoxdoc/wkhtmltopdf-0.9.9-doc.html
-PDF_CONFIG = {
+PDF_CONFIG_KO = {
     'encoding' => 'UTF-8',
     'page-size' => 'A4',
     'margin-top' => '1in',
@@ -21,8 +21,8 @@ PDF_CONFIG = {
     'load-error-handling' => 'ignore'
 }
 
-PDF_TOC_CONFIG = {
-    'xsl-style-sheet' => "#{CONFIG[:source_dir]}/_rake/build_pdf/toc.xsl",
+PDF_TOC_CONFIG_KO = {
+    'xsl-style-sheet' => "#{CONFIG[:source_dir]}/_rake/build_pdf/toc_ko.xsl",
     'header-html' => "''"
 }
 
@@ -32,14 +32,14 @@ task :build_pdf_ko do
   tmp_dir = CONFIG[:tmp_dir]
   pdf_filename = ENV['dest'] || CONFIG[:pdf_filename_ko]
   pdf_filename = File.expand_path(pdf_filename)
-  pdf_options_str = PDF_CONFIG.map{|key, value| "--#{key} #{value}"}.join(' ')
-  pdf_toc_options_str = PDF_TOC_CONFIG.map{|key, value| "--#{key} #{value}"}.join(' ')
+  pdf_options_str = PDF_CONFIG_KO.map{|key, value| "--#{key} #{value}"}.join(' ')
+  pdf_toc_options_str = PDF_TOC_CONFIG_KO.map{|key, value| "--#{key} #{value}"}.join(' ')
 
   puts "Isolate current Jekyll installation"
-  build_html(tmp_dir)
+  build_html_ko(tmp_dir)
 
   puts "Extract data from docs"
-  doc_content = get_doc_contents
+  doc_content = get_doc_contents_ko
 
   doc_content = render_erb("#{source_dir}/_rake/build_pdf/book-layout.erb", {
       :source_dir => source_dir,
@@ -58,7 +58,7 @@ task :build_pdf_ko do
 end
 
 
-def build_html dir
+def build_html_ko dir
   if File.directory?(dir)
     FileUtils.rm_r dir
   end
@@ -76,7 +76,7 @@ def build_html dir
 end
 
 
-def get_doc_contents
+def get_doc_contents_ko
   source_dir = CONFIG[:source_dir]
   tmp_dir = CONFIG[:tmp_dir]
   formatter = REXML::Formatters::Default.new

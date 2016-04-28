@@ -53,7 +53,7 @@ reference:
       - /docs/reference_ko/idioms.html: 이디엄
       - /docs/reference_ko/coding-conventions.html: 코딩 규칙
 
-  - title: Basics
+  - title: 기초
     description: The Basics
     content:
       - /docs/reference_ko/basic-types.html: 기본 타입
@@ -103,7 +103,7 @@ reference:
 
 
 
-  - title: Reference
+  - title: 레퍼런스
     description: API and Grammar
     content:
       - /api/latest/jvm/stdlib/: API 레퍼런스

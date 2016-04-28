@@ -2,10 +2,10 @@
 type: doc
 layout: reference
 category: "Syntax"
-title: "위임 프로퍼티(Delegated Properties)"
+title: "위임 프로퍼티"
 ---
 
-# 위임 프로퍼티(Delegated Properties)
+# 위임 프로퍼티
 
 필요할 때 수동으로 기능을 구현할 수 있지만, 한번에 다 구현하고 라이브러리에 넣는 것이 매우 좋은 그런 종류의 프로퍼티가 존재한다.
 다음 프로퍼티가 이런 종류에 속한다.
@@ -14,7 +14,7 @@ title: "위임 프로퍼티(Delegated Properties)"
 * observable 프로퍼티: 이 프로퍼티가 바뀔 때 리스너에 통지,
 * 별도 필드가 아닌 맵에 저장한 프로퍼티.
 
-이런 경우를 포함한 여러 경우를 처리하기 위해 코틀린은 _위임 프로퍼티_를 지원한다:
+이런 경우를 포함한 여러 경우를 처리하기 위해 코틀린은 _위임 프로퍼티(Delegated Properties)_를 지원한다:
 
 ``` kotlin
 class Example {
