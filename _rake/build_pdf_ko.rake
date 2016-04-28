@@ -50,6 +50,7 @@ task :build_pdf_ko do
   puts "wkhtmltopdf #{pdf_options_str} cover #{source_dir}/_rake/build_pdf/book-cover_ko.html toc #{pdf_toc_options_str} #{tmp_dir}/tmp.html #{pdf_filename}"
   unless system "wkhtmltopdf #{pdf_options_str} cover #{source_dir}/_rake/build_pdf/book-cover_ko.html toc #{pdf_toc_options_str} #{tmp_dir}/tmp.html #{pdf_filename}"
     $stderr.puts "Can't build, see build log for details"
+    rm_r "#{tmp_dir}"
     exit 1
   end
   rm_r "#{tmp_dir}"
