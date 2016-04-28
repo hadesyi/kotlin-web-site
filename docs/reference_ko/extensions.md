@@ -13,7 +13,7 @@ _확장(extension)_이라 불리는 특수한 선언을 이용해서 확장할 �
 ## 확장 함수
 
 확장 함수를 선언하려면 _리시버 타입(receiver type)_(확장할 타입)의 이름을 접두어로 사용해야 한다.
-다음은 `MutableList<Int>`에 `swap` 함수를 추가한다:
+다음은 `MutableList<Int>`에 `swap` 함수를 추가한다.
 
 ``` kotlin
 fun MutableList<Int>.swap(index1: Int, index2: Int) {
@@ -24,14 +24,14 @@ fun MutableList<Int>.swap(index1: Int, index2: Int) {
 ```
 
 확장 함수에서 *this*{: .keyword } 키워드는 리시버 객체(점 기호 앞에 전달되는 객체)에 해당한다.
-이제 `MutableList<Int>`에 대해 다음과 같이 함수를 호출할 수 있다:
+이제 `MutableList<Int>`에 대해 다음과 같이 함수를 호출할 수 있다.
 
 ``` kotlin
 val l = mutableListOf(1, 2, 3)
 l.swap(0, 2) // 'swap()'에서 'this'는 'l'의 값을 갖는다.
 ```
 
-물론 이 함수는 모든 `MutableList<T>`에 의미가 있으므로 지네릭으로 만들 수 있다:
+물론 이 함수는 모든 `MutableList<T>`에 의미가 있으므로 지네릭으로 만들 수 있다.
 
 ``` kotlin
 fun <T> MutableList<T>.swap(index1: Int, index2: Int) {
@@ -69,7 +69,7 @@ fun printFoo(c: C) {
 printFoo(D())
 ```
 
-이 예는 "C"를 출력한다. 왜냐면, 호출할 확장 함수를 선택할 때 `c` 파라미터의 선언 타입인 `C` 클래스만 사용하기 때문이다.
+이 예는 "C"를 출력한다. 왜냐면 호출할 확장 함수를 선택할 때 `c` 파라미터의 선언 타입인 `C` 클래스만 사용하기 때문이다.
 
 만약 클래스가 멤버 함수를 갖고 동일 리시버 타입을 갖는 동일 이름의 확장 함수가 있고 주어진 인자를 적용할 수 있다면 **항상 멤버가 이긴다**.
 다음 예를 보자:
@@ -82,7 +82,7 @@ class C {
 fun C.foo() { println("extension") }
 ```
 
-타입이 `C`인 `c`에 에 대해 `c.foo()`를 호출하면, "extension"이 아닌 "member"를 출력한다..
+타입이 `C`인 `c`에 에 대해 `c.foo()`를 호출하면 "extension"이 아닌 "member"를 출력한다..
 
 ## Nullable 리서버
 
@@ -100,7 +100,7 @@ fun Any?.toString(): String {
 
 ## 확장 프로퍼티
 
-함수와 유사하게 코틀린은 확장 프로퍼티를 지원한다:
+함수와 유사하게 코틀린은 확장 프로퍼티를 지원한다.
 
 ``` kotlin
 val <T> List<T>.lastIndex: Int
@@ -113,14 +113,14 @@ val <T> List<T>.lastIndex: Int
 예제:
 
 ``` kotlin
-val Foo.bar = 1 // 에러: 확장 프로퍼티에 대한 initializer 허용하지 않음
+val Foo.bar = 1 // 에러: 확장 프로퍼티에 대한 initializer는 허용하지 않음
 ```
 
 
 ## 컴페니언 오브젝트 확장
 
-클래스가 [컴페니언 오브젝트](object-declarations.html#companion-objects)를 가지면, 컴페니언 오브젝트에 대해서 함수와 프로퍼티를
-확장할 수 있다:
+클래스가 [컴페니언 오브젝트](object-declarations.html#companion-objects)를 가지면 컴페니언 오브젝트에 대해서 함수와 프로퍼티를
+확장할 수 있다.
 
 ``` kotlin
 class MyClass {
@@ -132,7 +132,7 @@ fun MyClass.Companion.foo() {
 }
 ```
 
-컴페니언 오브젝트의 다른 멤버처럼 클래스 이름을 사용해야 확장을 호출할 수 있다:
+컴페니언 오브젝트의 다른 멤버처럼 클래스 이름을 사용해야 확장을 호출할 수 있다.
 
 ``` kotlin
 MyClass.foo()
@@ -149,7 +149,7 @@ package foo.bar
 fun Baz.goo() { ... }
 ```
 
-패키지 밖에서 이런 확장을 사용하려면 사용 측에서 확장을 임포트해야 한다:
+패키지 밖에서 이런 확장을 사용하려면 사용 측에서 확장을 임포트해야 한다.
 
 ``` kotlin
 package com.example.usage
@@ -168,7 +168,7 @@ fun usage(baz: Baz) {
 
 ## 멤버로 확장을 선언하기
 
-클래스 안에서 다른 클래스를 위한 확장을 선언할 수 있다. 그 확장 안에는 _리시버가 암묵적(implicit)_(한정자(qualifier) 없이 접근할 수 있는 오브젝트 멤버)가 다수 존재한다.
+클래스 안에서 다른 클래스를 위한 확장을 선언할 수 있다. 그 확장 안에는 _리시버가 암묵적(implicit)으로_(한정자(qualifier) 없이 접근할 수 있는 오브젝트 멤버) 다수 존재한다.
 확장을 선언한 클래스의 인스턴스를 _디스패치(dispatch) 리시버_라 부르고, 확장 메서드의 리시버 타입 인스턴스를 _확장 리시버_라고 부른다.
 
 ``` kotlin
@@ -244,14 +244,14 @@ C().caller(D1())  // "D.foo in C" 출력 - 확장 리시버를 정적으로 선�
 ## 동기
 
 자바에서는 `FileUtils`, `StringUtils`처럼 "\*Utils"라는 이름을 갖는 클래스에 익숙하다. 잘 알려진 `java.util.Collections`도 이에 속한다.
-이런 유틸리티 클래스가 싫은 이유는 코드가 다음과 같은 모습을 띄기 때문이다:
+이런 유틸리티 클래스가 싫은 이유는 코드가 다음과 같은 모습을 띄기 때문이다.
 
 ``` java
 // Java
 Collections.swap(list, Collections.binarySearch(list, Collections.max(otherList)), Collections.max(list))
 ```
 
-클래스 이름이 항상 방해가 된다. 정적 임포트를 사용하면 다음 코드가 된다:
+클래스 이름이 항상 방해가 된다. 정적 임포트를 사용하면 다음 코드가 된다.
 
 ``` java
 // Java
@@ -265,4 +265,4 @@ swap(list, binarySearch(list, max(otherList)), max(list))
 list.swap(list.binarySearch(otherList.max()), list.max())
 ```
 
-하지만 `List` 클래스에 모든 가능한 메서드를 구현하는 것을 원치 않는다, 그렇지 않나? 이것이 확장이 우리를 돕는 지점이다.
+하지만 `List` 클래스에 모든 가능한 메서드를 구현하는 것은 원치 않는다, 그렇지 않나? 이것이 확장이 우리를 돕는 지점이다.

@@ -13,7 +13,7 @@ title: "오브젝트 식과 선언"
 
 ## 오브젝트 식
 
-특정 타입을 상속받은 임의 클래스의 객체를 생성할 때 다음과 같이 코드를 작성한다:
+특정 타입을 상속받은 임의 클래스의 객체를 생성할 때 다음과 같이 코드를 작성한다.
 
 ``` kotlin
 window.addMouseListener(object : MouseAdapter() {
@@ -28,7 +28,7 @@ window.addMouseListener(object : MouseAdapter() {
 ```
 
 상위타입이 생성자를 가지면 알맞은 생성자 파라미터를 전달해야 한다.
-상위 타입이 여러 개면 콜론 뒤에 콤마로 구분해서 지정한다:
+상위 타입이 여러 개면 콜론 뒤에 콤마로 구분해서 지정한다.
 
 
 ``` kotlin
@@ -43,7 +43,7 @@ val ab = object : A(1), B {
 }
 ```
 
-만약 별도 상위타입이 없는 "단순히 객체"가 필요하다면 다음 코드를 사용할 수 있다:
+만약 별도 상위타입이 없는 "단순히 객체"가 필요하다면 다음 코드를 사용할 수 있다.
 
 ``` kotlin
 val adHoc = object {
@@ -75,7 +75,7 @@ fun countClicks(window: JComponent) {
 
 ## 오브젝트 선언
 
-[싱글톤](http://en.wikipedia.org/wiki/Singleton_pattern)은 매우 유용한 패턴이다. 코틀린은 (스캍라를 따라해서) 쉽게 싱글톤을 선언할 수 있도록 했다:
+[싱글톤](http://en.wikipedia.org/wiki/Singleton_pattern)은 매우 유용한 패턴이다. 코틀린은 (스캍라를 따라해서) 쉽게 싱글톤을 선언할 수 있도록 했다.
 
 ``` kotlin
 object DataProviderManager {
@@ -89,7 +89,7 @@ object DataProviderManager {
 ```
 
 이를 *오브젝트 선언*이라고 한다. *object*{: .keyword } 키워드 뒤에 이름이 있으면 이는 _식_을 말하는 것이 아니다.
-오브젝트는 변수에 할당할 수 없으며 이름으로 참조할 수 있다. 오브젝트는 상위타입을 가질 수 있다:
+오브젝트는 변수에 할당할 수 없으며 이름으로 참조할 수 있다. 오브젝트는 상위타입을 가질 수 있다.
 
 ``` kotlin
 object DefaultListener : MouseAdapter() {
@@ -103,12 +103,12 @@ object DefaultListener : MouseAdapter() {
 }
 ```
 
-**주의**: 오브젝트는 로컬일 수 없다(예를 들어 함수 안에 바로 중첩하는 것). 하지만, 내부(inner)가 아닌 클래스나 다른 오브젝트 선언에 중첩할 수는 있다.
+**주의**: 오브젝트는 로컬일 수 없다(예를 들어 함수 안에 바로 중첩하는 것). 하지만 내부(inner)가 아닌 클래스나 다른 오브젝트 선언에 중첩할 수는 있다.
 
 
 ### 컴페니언 오브젝트
 
-클래스 안의 오브젝트 선언은 *companion*{: .keyword } 키워드를 붙일 수 있다:
+클래스 안의 오브젝트 선언은 *companion*{: .keyword } 키워드를 붙일 수 있다.
 
 ``` kotlin
 class MyClass {
@@ -118,13 +118,13 @@ class MyClass {
 }
 ```
 
-컴페니언 오브젝트의 멤버는 클래스 이름을 한정자로 사용해서 간단히 호출할 수 있다:
+컴페니언 오브젝트의 멤버는 클래스 이름을 한정자로 사용해서 간단히 호출할 수 있다.
 
 ``` kotlin
 val instance = MyClass.create()
 ```
 
-컴페니언 오브젝트의 이름을 생략하면 `Companion`을 이름으로 사용한다:
+컴페니언 오브젝트의 이름을 생략하면 `Companion`을 이름으로 사용한다.
 
 ``` kotlin
 class MyClass {
@@ -136,7 +136,7 @@ val x = MyClass.Companion
 ```
 
 컴페니언 오브젝트의 멤버가 다른 언어의 정적 멤버처럼 보이긴 하지만 런타임에는 실제 객체의 인스턴스 멤버이다.
-예를 들어 다음과 같이 인터페이스를 구현할 수 있다:
+예를 들어 다음과 같이 인터페이스를 구현할 수 있다.
 
 ``` kotlin
 interface Factory<T> {
@@ -151,13 +151,13 @@ class MyClass {
 }
 ```
 
-하지만, JVM에서 `@JvmStatic` 애노테이션을 사용하면 실제 정적 메서드와 필드로 생성된 컴페니언 오브젝트의 멤버를 가질 수 있다.
+하지만 JVM에서 `@JvmStatic` 애노테이션을 사용하면 실제 정적 메서드와 필드로 생성된 컴페니언 오브젝트의 멤버를 가질 수 있다.
 이에 대한 내용은 [자바 상호운용](java-interop.html#static-methods-and-fields)을 참고한다.
 
 
 ### 오브젝트 식과 오브젝트 선언의 세만틱 차이
 
-오브젝트 식과 오브젝트 선언은 한 가지 중요한 의미 차이가 있다:
+오브젝트 식과 오브젝트 선언은 한 가지 중요한 의미 차이가 있다.
 
 * 오브젝트 선언은 최초에 접근할 때까지 초기화를 (**lazily**) 미룬다.
 * 오브젝트 식은 사용할 때 **즉시** 실행(초기화)된다.

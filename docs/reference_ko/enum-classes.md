@@ -62,7 +62,7 @@ EnumClass.values(): Array<EnumClass>
 
 `valueOf()` 메서드는 지정한 이름에 해당하는 enum 상수가 없으면 `IllegalArgumentException`을 발생한다.
 
-모든 enum 상수는 상수의 이름과 enum 클래스에 정의된 순서를 구할 수 있는 프로퍼티를 갖는다:
+모든 enum 상수는 상수의 이름과 enum 클래스에 정의된 순서를 구할 수 있는 프로퍼티를 갖는다.
 
 ``` kotlin
 val name: String
